@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import React, { FC } from "react";
@@ -10,9 +9,23 @@ const MenuItem: FC<{ elem: IMenuData }> = ({ elem }) => {
     return (
         <>
             <Link href={elem.link}>
-                <a className={asPath === elem.link ? style.active : ""}>
-                    {elem.icon && <elem.icon />}
-                    <div>{elem.title}</div>
+                <a
+                    className={
+                        asPath === elem.link
+                            ? style.menu_active
+                            : style.menu_link
+                    }
+                >
+                    <div className={style.menu_items}>
+                        <div className={style.menu_item}>
+                            <span className={style.menu_item__icon}>
+                                {elem.icon && <elem.icon />}
+                            </span>
+                            <span className={style.menu_item__title}>
+                                {elem.title}
+                            </span>
+                        </div>
+                    </div>
                 </a>
             </Link>
         </>

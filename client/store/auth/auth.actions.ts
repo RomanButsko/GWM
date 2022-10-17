@@ -1,9 +1,9 @@
 import { toastr } from "react-redux-toastr";
 import { IUserLogin, IUserRegister } from "./auth.interface";
-import { UserService } from "./../../services/user.service";
 import { IUser } from "./../../types/user.types";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { toastrError } from "../../utils/api.utils";
+import { AuthService } from "../../services/auth/auth.service";
 
 export const registerUser = createAsyncThunk<IUser, IUserRegister>(
     "auth/register",
@@ -12,7 +12,7 @@ export const registerUser = createAsyncThunk<IUser, IUserRegister>(
         thunkApi
     ) => {
         try {
-            const response = await UserService.register(
+            const response = await AuthService.register(
                 email,
                 password,
                 city,
@@ -34,7 +34,7 @@ export const login = createAsyncThunk<IUser, IUserLogin>(
     "auth/login",
     async ({ email, password }, thunkApi) => {
         try {
-            const response = await UserService.login(email, password);
+            const response = await AuthService.login(email, password);
             toastr.success("Вход", "выполнен");
             return response;
         } catch (e) {

@@ -3,6 +3,7 @@ import React, { FC } from "react";
 import { PropsWithChildren } from "react";
 import Header from "./Header/Header";
 import Sidebar from "./Sidebar/Sidebar";
+import style from "./Layout.module.sass";
 
 export const Layout: FC<PropsWithChildren<{ title: string }>> = ({
     children,
@@ -13,7 +14,7 @@ export const Layout: FC<PropsWithChildren<{ title: string }>> = ({
             <Head>
                 <title>{title}</title>
             </Head>
-            <main>
+            <main className={style.main}>
                 <Header />
                 <section>
                     <Sidebar />

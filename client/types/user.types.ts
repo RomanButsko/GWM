@@ -19,3 +19,8 @@ export interface IUser extends Base {
     accessT: string;
     posts?: IPostUser[];
 }
+
+export interface IUserAuth {
+    user: IUser | null;
+    accessToken: string;
+}

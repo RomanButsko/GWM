@@ -1,10 +1,9 @@
 import Image from "next/image";
 import React from "react";
-import RightHeader from "../RightHeader/RightHeader";
+import RightHeader from "./RightHeader/RightHeader";
 import { UserService } from "./../../../services/user.service";
 import logo from "./../../../asset/logo.png";
 import style from "./Header.module.sass";
-import RegistationForm from "./Auth/AuthRegisterForm";
 
 interface Props {}
 

@@ -10,3 +10,9 @@ export interface IUserLogin {
     email: string;
     password: string;
 }
+
+export interface initialState {
+    isLoading: boolean;
+    user: IUser | null;
+    error: string | undefined;
+}

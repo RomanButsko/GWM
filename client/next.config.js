@@ -9,16 +9,16 @@ const nextConfig = {
   images: {
     domains: ['localhost ']
   },
-  async rewrites() {
-    return [
-      { 
-        source: 'api/path*', 
-        destination: 'http://localhost:7500/api/:path*'
-    },
-    ]
+  // async rewrites() {
+  //   return [
+  //     { 
+  //       source: 'api/path*', 
+  //       destination: 'http://localhost:7500/api/:path*'
+  //   },
+  //   ]
 
     
-  } 
+  // } 
 }
 
 module.exports = nextConfig

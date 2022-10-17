@@ -1,12 +1,33 @@
-import { IAuthResponse } from "./auth.helper";
 import { axiosRequest } from "../../api/axios";
+import { IUser } from "../../types/user.types";
 
 export const AuthService = {
     async login(email: string, password: string) {
-        const user = axiosRequest.post<IAuthResponse>("auth/signIn", {
+        const response = await axiosRequest.post<IUser>("auth/signIn", {
             email,
             password,
         });
-        return (await user).data;
+        return response.data;
+    },
+    async register(
+        email: string,
+        password: string,
+        city: string,
+        gender: string,
+        date: Date,
+        name: string,
+        surname: string
+    ) {
+        console.log(surname);
+        const response = await axiosRequest.post("auth/register", {
+            email,
+            password,
+            city,
+            gender,
+            date,
+            name,
+            surname,
+        });
+        return response.data;
     },
 };
