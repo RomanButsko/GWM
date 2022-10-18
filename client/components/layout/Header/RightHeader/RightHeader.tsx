@@ -19,17 +19,27 @@ const RightHeader = () => {
             <div className={style.profile}>
                 <div className={style.profile_block}>
                     {user ? (
-                        <div className={style.newId}>{user.email}</div>
+                        <div className={style.newId} onClick={handleClick}>
+                            {user.email}
+                        </div>
                     ) : (
-                        <AiOutlineUserAdd fill="#ffff" fontSize={28} />
+                        <div>
+                            <AiOutlineUserAdd fill="#ffff" fontSize={28} />
+                            <Button
+                                className={style.profile_btn}
+                                onClick={handleClick}
+                            >
+                                Профиль
+                            </Button>
+                        </div>
                     )}
-                    <Button className={style.profile_btn} onClick={handleClick}>
-                        Профиль
-                    </Button>
                 </div>
                 {profileMenu && (
                     <div className={style.profile_forms}>
-                        <ProfileMenu />
+                        <ProfileMenu
+                            setMenu={(arg0: boolean) => setProfileMenu(arg0)}
+                            profileMenu={profileMenu}
+                        />
                     </div>
                 )}
             </div>

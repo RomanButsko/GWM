@@ -7,8 +7,10 @@ import style from "./Login.module.sass";
 import { Button } from "../../../../ui/button/Button";
 import { useActions } from "../../../../hooks/useAction";
 import useAuth from "../../../../hooks/useAuth";
+import { IProfileMenu } from "../ProfileMenu/profileMenu.interface";
+import { FC } from "react";
 
-const LoginForm = () => {
+const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const {
         register,
         handleSubmit,
@@ -31,7 +33,9 @@ const LoginForm = () => {
 
     const onSubmit: SubmitHandler<IUserLogin> = (data) => {
         login(data);
+        setMenu(!profileMenu);
     };
+
     return (
         <div className={style.login_block}>
             <form onSubmit={handleSubmit(onSubmit)} className={style.form}>

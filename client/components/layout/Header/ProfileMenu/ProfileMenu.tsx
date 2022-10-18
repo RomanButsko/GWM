@@ -1,11 +1,14 @@
 import React, { useState } from "react";
+import { FC } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import { useOutside } from "../../../../hooks/useOutside";
 import LoginForm from "../LoginForm/Login";
 import RegistationForm from "../RegisterForm/AuthRegisterForm";
+import UserMenu from "../UserMenu/UserMenu";
 import style from "./Profile.module.sass";
+import { IProfileMenu } from "./profileMenu.interface";
 
-const ProfileMenu = () => {
+const ProfileMenu: FC<IProfileMenu> = (props) => {
     const [loginModal, setLoginModal] = useState<boolean>(false);
     const [signInModal, setSignInModal] = useState<boolean>(false);
     const [authModal, setAuthModal] = useState<boolean>(true);
@@ -14,16 +17,19 @@ const ProfileMenu = () => {
 
     const { ref, isShow, setIsShow } = useOutside(false);
 
-    const loginForm = () => {
-        setIsShow(!isShow);
-        setLoginModal(!loginModal);
+    const changeShowModal = () => {
         setAuthModal(!authModal);
+        setIsShow(!isShow);
+    };
+
+    const loginForm = () => {
+        setLoginModal(!loginModal);
+        changeShowModal();
     };
 
     const signInForm = () => {
-        setIsShow(!isShow);
         setSignInModal(!signInModal);
-        setAuthModal(!authModal);
+        changeShowModal();
     };
 
     return (
@@ -44,9 +50,11 @@ const ProfileMenu = () => {
                 )) ||
                     (loginModal && (
                         <div ref={ref} className={style.auth_forms__item}>
-                            <LoginForm />
+                            <LoginForm {...props} />
                         </div>
                     )))}
+
+            {user && <UserMenu {...props} />}
         </div>
     );
 };

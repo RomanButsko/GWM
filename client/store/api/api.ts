@@ -1,3 +1,4 @@
+import { IPost } from "./../../types/post.type";
 import { ApiURL } from "./../../api/axios";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IUser } from "../../types/user.types";
@@ -5,6 +6,7 @@ import { TypeRootState } from "../store";
 
 export const api = createApi({
     reducerPath: "api",
+    tagTypes: ["Posts"],
     baseQuery: fetchBaseQuery({
         baseUrl: ApiURL,
         prepareHeaders: (headers, { getState }) => {
@@ -17,6 +19,14 @@ export const api = createApi({
     endpoints: (builder) => ({
         getProfile: builder.query<IUser, any>({
             query: () => `user/profile`,
+        }),
+        createPost: builder.mutation<IPost, Partial<IPost>>({
+            query: (body) => ({
+                url: `posts/create`,
+                method: "POST",
+                body,
+            }),
+            invalidatesTags: ["Posts"],
         }),
     }),
 });

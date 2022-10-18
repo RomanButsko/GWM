@@ -15,8 +15,10 @@ export const Layout: FC<PropsWithChildren<{ title: string }>> = ({
                 <title>{title}</title>
             </Head>
             <main className={style.main}>
-                <Header />
-                <section>
+                <header className={style.header}>
+                    <Header />
+                </header>
+                <section className={style.sidebar}>
                     <Sidebar />
                 </section>
                 {children}
