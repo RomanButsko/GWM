@@ -1,13 +1,10 @@
 import Image from "next/image";
 import React from "react";
 import RightHeader from "./RightHeader/RightHeader";
-import { UserService } from "./../../../services/user.service";
 import logo from "./../../../asset/logo.png";
 import style from "./Header.module.sass";
 
-interface Props {}
-
-const Header = (props: Props) => {
+const Header = () => {
     return (
         <div className={style.header}>
             <Image src={logo} alt="logo" width={200} height={50} />

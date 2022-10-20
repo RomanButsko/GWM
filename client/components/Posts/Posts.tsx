@@ -1,36 +1,26 @@
 import React from "react";
 import { FC } from "react";
 import { IHomePosts } from "../pages/Home/home.interface";
+import PostNew from "./newOnePost/PostNew";
+import PopularPosts from "./popularPosts/PopularPosts";
 import style from "./Posts.module.sass";
+import RandomPost from "./randomPost/RandomPost";
 
 const Posts: FC<IHomePosts> = ({ randomPost, newPosts, mostPopularPosts }) => {
-    console.log(randomPost, newPosts, mostPopularPosts);
     return (
         <div className={style.post}>
             <div className={style.post_random}>
-                Random
-                {randomPost.title}
-                {randomPost.views}
+                {<RandomPost {...randomPost} />}
             </div>
 
             <div className={style.post_popular}>
                 {mostPopularPosts.map((item) => (
-                    <>
-                        Popular
-                        <div>{item.views}</div>
-                        <div>{item.title}</div>
-                    </>
+                    <PopularPosts {...item} />
                 ))}
             </div>
 
             <div className={style.post_new}>
-                {newPosts.map((item) => (
-                    <>
-                        NewPost
-                        <div>{item.views}</div>
-                        <div>{item.title}</div>
-                    </>
-                ))}
+                <PostNew {...newPosts[0]} />
             </div>
         </div>
     );

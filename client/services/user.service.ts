@@ -2,8 +2,9 @@ import { IUser } from "./../types/user.types";
 import { axiosRequest } from "../api/axios";
 
 export const UserService = {
-    async getOneUser(id: number) {
-        const response = await axiosRequest.get<IUser>(`user/${id}`);
+    async getOnePureUser(id: string) {
+        const response = await axiosRequest.get<IUser>(`pureUser/${id}`);
+        if (!response) return;
         return response.data;
     },
     async getAllUser() {

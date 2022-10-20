@@ -10,8 +10,6 @@ import AuthNameField from "../../../../ui/field/AuthNameField";
 import { Field } from "../../../../ui/field/Fields";
 import { Button } from "../../../../ui/button/Button";
 import { useActions } from "../../../../hooks/useAction";
-import { FC } from "react";
-import { IProfileMenu } from "../ProfileMenu/profileMenu.interface";
 
 const RegistationForm = () => {
     const [activeCheckbox, setActiveCheckbox] = useState<string>("");
