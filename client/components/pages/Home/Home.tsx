@@ -1,6 +1,5 @@
 import React from "react";
 import { FC } from "react";
-import CreatePost from "../../CreatePost/CreatePost";
 import { Layout } from "../../layout/Layout";
 import Posts from "../../Posts/Posts";
 import { IHomePosts } from "./home.interface";

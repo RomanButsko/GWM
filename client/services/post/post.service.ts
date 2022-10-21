@@ -6,7 +6,6 @@ export const PostService = {
         const response = await axiosRequest.get<IPost[]>(
             "posts/findMostPopular"
         );
-        console.log(response.data);
         return response.data;
     },
     async getFindAll() {

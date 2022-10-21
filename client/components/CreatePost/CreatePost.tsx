@@ -10,7 +10,9 @@ import { Field } from "../../ui/field/Fields";
 import style from "./CreatePost.module.sass";
 
 const CreatePost = () => {
+    const [modalCreate, setModalCreate] = useState<boolean>(true);
     const [picture, setPicture] = useState<string>("");
+
     const [createPost, { isLoading }] = api.useCreatePostMutation();
     const { user } = useAuth();
 
@@ -20,6 +22,7 @@ const CreatePost = () => {
 
     useEffect(() => {
         if (formState.isSubmitSuccessful) {
+            setModalCreate(!modalCreate);
             reset();
         }
     }, [formState, reset]);
@@ -30,7 +33,7 @@ const CreatePost = () => {
     };
     return (
         <>
-            {user && (
+            {user && modalCreate && (
                 <div className={style.createPost}>
                     {isLoading && <div>Идет загрузка...</div>}
                     <form onSubmit={handleSubmit(onSubmit)}>

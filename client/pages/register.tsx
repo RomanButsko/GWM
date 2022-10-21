@@ -1,5 +1,5 @@
 import React from "react";
-import RegistationForm from "../components/Auth/AuthRegisterForm";
+import RegistationForm from "../components/layout/Header/RegisterForm/AuthRegisterForm";
 
 interface Props {}
 

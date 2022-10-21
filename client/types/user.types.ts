@@ -17,8 +17,10 @@ export interface IUser extends Base {
     like: number;
     dislike: number;
     accessT: string;
-    posts?: IPostUser[];
+    posts: IPostUser[];
 }
+
+export type IUserProfile = Omit<IUser, "id" | "password" | "accessT">;
 
 export interface IUserAuth {
     user: IUser | null;

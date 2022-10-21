@@ -16,8 +16,60 @@ export const api = createApi({
         },
     }),
     endpoints: (builder) => ({
-        getProfile: builder.query<IUser, any>({
+        getProfile: builder.query<IUser, void>({
             query: () => `user/profile`,
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.posts.map(({ id }) => ({
+                              type: "Posts" as const,
+                              id,
+                          })),
+                          { type: "Posts", id: "LIST" },
+                      ]
+                    : [{ type: "Posts", id: "LIST" }],
+        }),
+        getMostPopularPosts: builder.query<IPost[], void>({
+            query: () => "posts/findMostPopular",
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({
+                              type: "Posts" as const,
+                              id,
+                          })),
+                          { type: "Posts", id: "LIST" },
+                      ]
+                    : [{ type: "Posts", id: "LIST" }],
+        }),
+        getFindAllPosts: builder.query<IPost[], void>({
+            query: () => "posts/findPost",
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({
+                              type: "Posts" as const,
+                              id,
+                          })),
+                          { type: "Posts", id: "LIST" },
+                      ]
+                    : [{ type: "Posts", id: "LIST" }],
+        }),
+        getFindOnePost: builder.query<IPost, number>({
+            query: (id: number) => `posts/findPost/${id}`,
+        }),
+        findNewPost: builder.query<IPost[], void>({
+            query: () => "posts/findNewPost",
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({
+                              type: "Posts" as const,
+                              id,
+                          })),
+                          { type: "Posts", id: "LIST" },
+                      ]
+                    : [{ type: "Posts", id: "LIST" }],
         }),
         createPost: builder.mutation<IPost, Partial<IPostReq>>({
             query: (body) => ({
@@ -25,7 +77,7 @@ export const api = createApi({
                 method: "POST",
                 body,
             }),
-            invalidatesTags: ["Posts"],
+            invalidatesTags: [{ type: "Posts", id: "LIST" }],
         }),
     }),
 });

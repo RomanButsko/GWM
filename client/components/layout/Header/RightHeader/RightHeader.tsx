@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { useAppSelector } from "../../../../hooks/useSelector";
 import { Button } from "../../../../ui/button/Button";
+import Modal from "../../../../ui/modal/Modal";
 import CreatePost from "../../../CreatePost/CreatePost";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import style from "./RightHeader.module.sass";
@@ -33,18 +34,10 @@ const RightHeader = () => {
                                 {addPost ? (
                                     <div>Отменить</div>
                                 ) : (
-                                    <div>Добавить пост</div>
+                                    <button>Добавить пост</button>
                                 )}
                             </button>
-                            {addPost && (
-                                <div
-                                    className={
-                                        style.profile_block__post__create
-                                    }
-                                >
-                                    <CreatePost />
-                                </div>
-                            )}
+                            {addPost && <Modal children={<CreatePost />} />}
                         </>
                     ) : (
                         <div>

@@ -1,5 +1,5 @@
 import React, { FC } from "react";
-import { ReactFCWithChildren } from "../../components/Auth/auth.interface";
+import { ReactFCWithChildren } from "../../components/layout/Header/RegisterForm/auth.interface";
 
 const AuthNameField: FC<ReactFCWithChildren> = ({ children, ...props }) => {
     const { name, blockClass, fieldClass, legendClass } = props;
