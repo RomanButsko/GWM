@@ -37,7 +37,15 @@ const RightHeader = () => {
                                     <button>Добавить пост</button>
                                 )}
                             </button>
-                            {addPost && <Modal children={<CreatePost />} />}
+                            {addPost && (
+                                <div
+                                    className={
+                                        style.profile_block__post__create
+                                    }
+                                >
+                                    <CreatePost />
+                                </div>
+                            )}
                         </>
                     ) : (
                         <div>

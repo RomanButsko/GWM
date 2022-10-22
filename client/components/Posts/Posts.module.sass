@@ -1,7 +1,7 @@
 .post
   display: grid
   grid-template-columns: repeat(3, 1fr)
-  grid-template-rows: repeat(3, 1fr)
+  grid-template-rows: repeat(3, 200px)
   gap: 0px 0px
   grid-template-areas: "post_new post_random post_random" "post_new post_random post_random" "post_popular post_popular post_popular"
 .post_new 
@@ -10,3 +10,6 @@
     grid-area: post_random
 .post_popular 
     grid-area: post_popular
+    display: grid
+    gap: 20px
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr))

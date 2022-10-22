@@ -22,7 +22,7 @@ const UserMenu: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
                 <ul className={style.profile_list}>
                     <li>
                         <ImProfile />
-                        <Link href="my-profile">
+                        <Link href="profile/my-profile">
                             <a>Мой профиль</a>
                         </Link>
                     </li>

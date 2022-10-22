@@ -151,7 +151,7 @@ const RegistationForm = () => {
                             name="city"
                             rules={{ required: "City is required" }}
                             render={({
-                                field: { onChange, value },
+                                field: { onChange },
                                 fieldState: { error },
                             }) => (
                                 <>

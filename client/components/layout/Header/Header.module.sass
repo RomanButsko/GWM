@@ -1,3 +1,16 @@
-.header
-    display: flex
-    justify-content: space-between
+.header 
+    display: grid
+    grid-template-columns: 0.5fr 2fr 0.5fr
+    grid-template-rows: 1fr
+    gap: 0px 0px
+    grid-auto-flow: row
+    grid-template-areas: "header_image header_search header_profile"
+
+.header_image 
+    grid-area: header_image
+
+.header_search 
+    grid-area: header_search
+
+.header_profile 
+    grid-area: header_profile
