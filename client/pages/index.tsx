@@ -1,6 +1,6 @@
 import type { GetStaticProps, NextPage } from "next";
-import HomePage from "../components/pages/Home/Home";
-import { IHomePosts } from "../components/pages/Home/home.interface";
+import HomePage from "../components/pages/HomePage/Home";
+import { IHomePosts } from "../components/pages/HomePage/home.interface";
 import { PostService } from "../services/post/post.service";
 import { IPost } from "../types/post.type";
 import shuffle from "lodash/shuffle";
@@ -12,12 +12,11 @@ const Home: NextPage<IHomePosts> = (props) => {
         </>
     );
 };
-
 export const getStaticProps: GetStaticProps = async () => {
     try {
-        const mostPopular = await PostService.getMostPopular();
-        const lastPosts = await PostService.findNewPost();
-        const randomPost = await PostService.getFindAll();
+        const { data: mostPopular } = await PostService.getMostPopular();
+        const { data: lastPosts } = await PostService.findNewPost();
+        const { data: randomPost } = await PostService.getFindAll();
         return {
             props: {
                 mostPopularPosts: mostPopular,

@@ -4,7 +4,7 @@ import React from "react";
 import { UserService } from "../../services/user.service";
 import { IUser } from "../../types/user.types";
 import { IParams, IUserIdProps } from "../../types/userSearchId.types";
-import ProfilePage from "./../../components/pages/Profile/Profile";
+import ProfilePage from "../../components/pages/ProfilePage/Profile";
 
 export const getStaticProps: GetStaticProps = async ({ params }) => {
     try {

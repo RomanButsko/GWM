@@ -6,18 +6,18 @@ export const PostService = {
         const response = await axiosRequest.get<IPost[]>(
             "posts/findMostPopular"
         );
-        return response.data;
+        return response;
     },
     async getFindAll() {
         const response = await axiosRequest.get<IPost[]>("posts/findPost");
-        return response.data;
+        return response;
     },
     async getFindOne(id: number) {
         const response = await axiosRequest.get<IPost>(`posts/findPost/${id}`);
-        return response.data;
+        return response;
     },
     async findNewPost() {
         const response = await axiosRequest.get<IPost[]>("posts/findNewPost");
-        return response.data;
+        return response;
     },
 };

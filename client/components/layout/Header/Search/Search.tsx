@@ -1,39 +1,29 @@
-import { useEffect } from "react";
-import { ChangeEvent } from "react";
-import { useState } from "react";
-import { useDebounce } from "../../../../hooks/useDebounce";
-import { api } from "../../../../store/api/api";
+import { useRouter } from "next/router";
+import { BsSearch } from "react-icons/bs";
+import style from "./Search.module.sass";
+import SearchItem from "./searchItem/SearchItem";
+import { useSearch } from "./useSearch";
 
 const Search = () => {
-    const [searchTerm, setSearchTerm] = useState<string>("");
-    const [searchResults, setSearchResults] = useState<any[]>([]);
-    const [isSearching, setIsSearching] = useState<boolean>(false);
-
-    const { data } = api.useGetFindAllPostsQuery();
-    const debouncedSearchTerm: string = useDebounce<string>(searchTerm, 500);
-
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value);
-    };
-    // useEffect(() => {
-    //     const results = data.filter((post) =>
-    //         post.toLowerCase().includes(searchTerm)
-    //     );
-    //     setSearchResults(results);
-    // }, [searchTerm]);
-
+    const { searchTerm, searchResults, handleChange, setSearchTerm } =
+        useSearch();
     return (
-        <div className="App">
-            <input
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={handleChange}
-            />
+        <div className={style.search}>
+            <div className={style.search_block}>
+                <BsSearch />
+                <input
+                    type="text"
+                    placeholder="Search"
+                    value={searchTerm}
+                    onChange={handleChange}
+                    className={style.search_block__input}
+                />
+            </div>
             <ul>
-                {searchResults.map((item) => (
-                    <li>{item}</li>
-                ))}
+                {searchTerm &&
+                    searchResults.map((item) => (
+                        <SearchItem post={item} setSearchTerm={setSearchTerm} />
+                    ))}
             </ul>
         </div>
     );

@@ -1,15 +1,16 @@
 import React, { useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
+import { useOutside } from "../../../../hooks/useOutside";
 import { useAppSelector } from "../../../../hooks/useSelector";
 import { Button } from "../../../../ui/button/Button";
-import Modal from "../../../../ui/modal/Modal";
 import CreatePost from "../../../CreatePost/CreatePost";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import style from "./RightHeader.module.sass";
 
 const RightHeader = () => {
     const [profileMenu, setProfileMenu] = useState(false);
-    const [addPost, setAddPost] = useState(false);
+
+    const { ref, isShow, setIsShow } = useOutside(false);
 
     const { user } = useAppSelector((state) => state.auth);
 
@@ -29,16 +30,17 @@ const RightHeader = () => {
                             </div>
                             <button
                                 className={style.profile_block__post}
-                                onClick={() => setAddPost(!addPost)}
+                                onClick={() => setIsShow(!isShow)}
                             >
-                                {addPost ? (
+                                {isShow ? (
                                     <div>Отменить</div>
                                 ) : (
                                     <button>Добавить пост</button>
                                 )}
                             </button>
-                            {addPost && (
+                            {isShow && (
                                 <div
+                                    ref={ref}
                                     className={
                                         style.profile_block__post__create
                                     }

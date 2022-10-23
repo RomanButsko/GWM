@@ -3,9 +3,9 @@ import { axiosRequest } from "../api/axios";
 
 export const UserService = {
     async getOnePureUser(id: string) {
-        const response = await axiosRequest.get<IUser>(`pureUser/${id}`);
+        const response = await axiosRequest.get<IUser>(`user/pureUser/${id}`);
         if (!response) return;
-        return response;
+        return response.data;
     },
     async getOneUserById(id: string) {
         const response = await axiosRequest.get<IUser>(`user/${id}`);

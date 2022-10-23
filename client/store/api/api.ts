@@ -29,6 +29,10 @@ export const api = createApi({
                       ]
                     : [{ type: "Posts", id: "LIST" }],
         }),
+        getUserById: builder.query<IUser, number>({
+            query: (id: number) => `user/pureUser/${id}`,
+        }),
+
         getMostPopularPosts: builder.query<IPost[], void>({
             query: () => "posts/findMostPopular",
             providesTags: (result) =>
@@ -60,6 +64,19 @@ export const api = createApi({
         }),
         findNewPost: builder.query<IPost[], void>({
             query: () => "posts/findNewPost",
+            providesTags: (result) =>
+                result
+                    ? [
+                          ...result.map(({ id }) => ({
+                              type: "Posts" as const,
+                              id,
+                          })),
+                          { type: "Posts", id: "LIST" },
+                      ]
+                    : [{ type: "Posts", id: "LIST" }],
+        }),
+        findMyPostBySearch: builder.query<IPost[], string>({
+            query: (param) => `posts?searchParam=${param}`,
             providesTags: (result) =>
                 result
                     ? [

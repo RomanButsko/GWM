@@ -1,5 +1,3 @@
-import { IUser } from "./user.types";
-
 export interface IPost extends IPostReq {
     id: number;
     views: number;
@@ -12,4 +10,8 @@ export interface IPostReq {
     date: Date;
     picture: string;
     location: string;
+}
+
+export interface IPostIdProps {
+    post: IPost;
 }

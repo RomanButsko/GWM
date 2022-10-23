@@ -1,6 +1,5 @@
 import React from "react";
 import { FC } from "react";
-import { api } from "../../../store/api/api";
 import { IUserProfile } from "../../../types/user.types";
 
 const GuestProfileUser: FC<IUserProfile> = ({
@@ -21,8 +20,9 @@ const GuestProfileUser: FC<IUserProfile> = ({
     return (
         <>
             <div>
-                {name}
-                <div>Ближайшие мероприятия у {name}</div>
+                <div>Пользователь Имя {name}</div>
+                <div>Фамилия {surname}</div>
+                <div>Обо мне {aboutMe}</div>
             </div>
         </>
     );
