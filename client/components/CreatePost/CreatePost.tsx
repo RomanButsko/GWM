@@ -1,16 +1,18 @@
+import { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { IMediaResponse } from "../../../server/src/media/media.interface";
 import useAuth from "../../hooks/useAuth";
 import { api } from "../../store/api/api";
 import { IPostReq } from "../../types/post.type";
 import { Button } from "../../ui/button/Button";
 import AuthNameField from "../../ui/field/AuthNameField";
 import { Field } from "../../ui/field/Fields";
+import UploadField from "../../ui/upload-field/UploadField";
 import style from "./CreatePost.module.sass";
 
 const CreatePost = () => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
-    const [picture, setPicture] = useState<string>("");
 
     const [createPost, { isLoading }] = api.useCreatePostMutation();
     const { user } = useAuth();
@@ -27,7 +29,6 @@ const CreatePost = () => {
     }, [formState, reset]);
 
     const onSubmit: SubmitHandler<IPostReq> = async (data) => {
-        data.picture = picture;
         await createPost(data).unwrap();
     };
     return (
@@ -55,7 +56,6 @@ const CreatePost = () => {
                                 className={style.create_input}
                             />
                         </AuthNameField>
-
                         <AuthNameField
                             name={"Описание"}
                             fieldClass={style.create}
@@ -75,7 +75,6 @@ const CreatePost = () => {
                                 className={style.create_input}
                             />
                         </AuthNameField>
-
                         <AuthNameField
                             name={"Дата"}
                             fieldClass={style.create}
@@ -93,18 +92,20 @@ const CreatePost = () => {
                                 placeholder="00/00/0000"
                             />
                         </AuthNameField>
-
-                        <input
-                            {...register("picture", {
-                                required: "Поле обязательно",
-                                onChange: (e) => {
-                                    setPicture(e.target.files[0].name);
-                                },
-                            })}
-                            type="file"
-                            required
+                        <Controller
+                            control={form.control}
+                            name="postsPhotoPath"
+                            render={() => (
+                                <UploadField
+                                    title={"Загрузите фото"}
+                                    onChange={(value: IMediaResponse) => {
+                                        onChange(value.url);
+                                    }}
+                                    folder="posts"
+                                    setIsChosen={}
+                                />
+                            )}
                         />
-
                         <AuthNameField
                             name={"Место проведения"}
                             fieldClass={style.create}
@@ -119,7 +120,6 @@ const CreatePost = () => {
                                 className={style.create_input}
                             />
                         </AuthNameField>
-
                         <div className={style.sendForm}>
                             <Button
                                 type="submit"
