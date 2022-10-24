@@ -1,0 +1,3 @@
+[submodule "client/GWM_server"]
+	path = client/GWM_server
+	url = https://github.com/RomanButsko/GWM_server
