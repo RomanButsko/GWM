@@ -11,11 +11,6 @@ import RandomPost from "./randomPost/RandomPost";
 const Posts: FC<IHomePosts> = ({ randomPost, newPosts, mostPopularPosts }) => {
     const router = useRouter();
 
-    const handleClick = (e: any, post: any) => {
-        const path = post.userId;
-        e.preventDefault();
-        router.push(`/profile/${path}`);
-    };
     return (
         <div className={style.post}>
             <div className={style.post_random}>

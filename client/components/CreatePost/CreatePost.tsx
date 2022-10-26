@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { IMediaResponse } from "../../../server/src/media/media.interface";
@@ -14,11 +13,21 @@ import style from "./CreatePost.module.sass";
 const CreatePost = () => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
 
-    const [createPost, { isLoading }] = api.useCreatePostMutation();
+    const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
+
     const { user } = useAuth();
 
-    const { register, handleSubmit, reset, formState } = useForm<IPostReq>({
+    const {
+        register,
+        handleSubmit,
+        control,
+        reset,
+        formState,
+        watch,
+        setValue,
+    } = useForm<IPostReq>({
         shouldUseNativeValidation: true,
+        mode: "onChange",
     });
 
     useEffect(() => {
@@ -29,7 +38,7 @@ const CreatePost = () => {
     }, [formState, reset]);
 
     const onSubmit: SubmitHandler<IPostReq> = async (data) => {
-        await createPost(data).unwrap();
+        await userPostCreate(data).unwrap();
     };
     return (
         <>
@@ -93,16 +102,16 @@ const CreatePost = () => {
                             />
                         </AuthNameField>
                         <Controller
-                            control={form.control}
-                            name="postsPhotoPath"
-                            render={() => (
+                            control={control}
+                            name="picture"
+                            render={({ field: { onChange } }) => (
                                 <UploadField
                                     title={"Загрузите фото"}
-                                    onChange={(value: IMediaResponse) => {
-                                        onChange(value.url);
-                                    }}
+                                    onChange={(value: IMediaResponse) =>
+                                        onChange(value.url)
+                                    }
                                     folder="posts"
-                                    setIsChosen={}
+                                    id={user.id}
                                 />
                             )}
                         />

@@ -3,14 +3,10 @@ import { FC } from "react";
 import { IUploadField } from "./upload-field.interface";
 import { useUploadField } from "./useUploadField";
 
-const UploadField: FC<IUploadField> = ({
-    title,
-    onChange,
-    setIsChosen,
-    folder,
-}) => {
-    const { uploadFile } = useUploadField(onChange, folder, setIsChosen);
+const UploadField: FC<IUploadField> = ({ title, onChange, folder, id }) => {
+    const { uploadFile } = useUploadField(onChange, id, folder);
 
+    console.log(uploadFile);
     return (
         <div>
             {title && <h2>{title}</h2>}
@@ -23,3 +19,5 @@ const UploadField: FC<IUploadField> = ({
 };
 
 export default UploadField;
+
+// Здесь при изменении файлы в input в него возвращается новое фото (name и путь)

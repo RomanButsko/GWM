@@ -7,7 +7,9 @@ const nextConfig = {
     APP_URL: process.env.REACT_APP_URL
   },
   images: {
-    domains: ['localhost ']
+    domains: ['localhost'],
+    loader: 'custom',
+    loaderFile: './loader/Image-loader.ts',
   },
   // async rewrites() {
   //   return [

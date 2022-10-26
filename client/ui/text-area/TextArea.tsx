@@ -9,10 +9,12 @@ const TextArea: FC = forwardRef<HTMLTextAreaElement, ITextArea>(
     ({ error, style, ...rest }, ref) => {
         return (
             <>
-                <textarea ref={ref} {...rest} className={styles.create_input} />
-                {error && (
-                    <span className={styles.required}>{error?.message}</span>
-                )}
+                <div className={styles.areaBlock} style={style}>
+                    <textarea ref={ref} {...rest} />
+                    {error && (
+                        <span className={styles.error}>{error?.message}</span>
+                    )}
+                </div>
             </>
         );
     }

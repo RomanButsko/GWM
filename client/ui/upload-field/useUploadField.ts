@@ -6,12 +6,13 @@ import { ChangeEvent } from "react";
 
 export const useUploadField = (
     onChange: (...event: any) => void,
-    folder?: string,
-    setIsChosen?: Dispatch<SetStateAction<boolean>>
+    // setIsChosen: Dispatch<SetStateAction<boolean>>,
+    id: number,
+    folder?: string
 ) => {
     const dataMutate = async (data: FormData) => {
-        await MediaService.upload(data, folder)
-            .then((res) => onChange(res))
+        return await MediaService.upload(data, id, folder)
+            .then(({ data }) => onChange(data))
             .catch((error) => alert(errorCatch(error)));
     };
 
@@ -19,15 +20,16 @@ export const useUploadField = (
         const files = e.target.files;
         if (!files?.length) return;
 
-        setIsChosen && setIsChosen(true);
+        // setIsChosen && setIsChosen(true);
 
         const formData = new FormData();
         formData.append("media", files[0]);
-
-        await dataMutate(formData);
+        return await dataMutate(formData);
     };
 
     return {
         uploadFile,
     };
 };
+
+//здесь получаем URL и Name загруженного файла
