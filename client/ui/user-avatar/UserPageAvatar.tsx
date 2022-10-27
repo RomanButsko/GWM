@@ -1,20 +1,20 @@
 import React from "react";
-import { Controller, SubmitHandler, useForm } from "react-hook-form";
+import { FC } from "react";
+import { Controller, useForm } from "react-hook-form";
 import { IMediaResponse } from "../../../server/src/media/media.interface";
-import useAuth from "../../hooks/useAuth";
+import { api } from "../../store/api/api";
 import UploadField from "../upload-field/UploadField";
 
-const UserPageAvatar = (id) => {
+const UserPageAvatar: FC<{ id: number }> = ({ id }) => {
     const { control } = useForm<{ picture: string }>({
         shouldUseNativeValidation: true,
         mode: "onChange",
     });
 
-    const { user } = useAuth();
+    const [changeAvatar] = api.useChangeUserAvatarMutation();
 
     const onSubmit = (value: string) => {
-        user && (user.avatarPath = value);
-        console.log("value", user?.avatarPath);
+        changeAvatar({ data: { avatarPath: value }, id: id });
         return value;
     };
     return (

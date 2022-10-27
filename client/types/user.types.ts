@@ -8,7 +8,7 @@ export interface IUser extends Base {
     name: string;
     surname: string;
     aboutMe: string;
-    avatarPath?: string;
+    avatarPath: string;
     date: Date;
     gender: string;
     city: string;
@@ -25,4 +25,8 @@ export type IUserProfile = Omit<IUser, "id" | "password" | "accessT">;
 export interface IUserAuth {
     user: IUser | null;
     accessToken: string;
+}
+
+export interface IChangeAvatar {
+    avatarPath: string;
 }

@@ -6,7 +6,6 @@ import { useUploadField } from "./useUploadField";
 const UploadField: FC<IUploadField> = ({ title, onChange, folder, id }) => {
     const { uploadFile } = useUploadField(onChange, id, folder);
 
-    console.log(uploadFile);
     return (
         <div>
             {title && <h2>{title}</h2>}

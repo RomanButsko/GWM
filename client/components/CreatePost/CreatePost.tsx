@@ -1,3 +1,4 @@
+import { FC } from "react";
 import { useEffect, useState } from "react";
 import { Controller, SubmitHandler, useForm } from "react-hook-form";
 import { IMediaResponse } from "../../../server/src/media/media.interface";
@@ -8,27 +9,21 @@ import { Button } from "../../ui/button/Button";
 import AuthNameField from "../../ui/field/AuthNameField";
 import { Field } from "../../ui/field/Fields";
 import UploadField from "../../ui/upload-field/UploadField";
+import { ICreatePost } from "./createPost.interface";
 import style from "./CreatePost.module.sass";
 
-const CreatePost = () => {
+const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
 
     const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
 
     const { user } = useAuth();
 
-    const {
-        register,
-        handleSubmit,
-        control,
-        reset,
-        formState,
-        watch,
-        setValue,
-    } = useForm<IPostReq>({
-        shouldUseNativeValidation: true,
-        mode: "onChange",
-    });
+    const { register, handleSubmit, control, reset, formState } =
+        useForm<IPostReq>({
+            shouldUseNativeValidation: true,
+            mode: "onChange",
+        });
 
     useEffect(() => {
         if (formState.isSubmitSuccessful) {
@@ -38,6 +33,7 @@ const CreatePost = () => {
     }, [formState, reset]);
 
     const onSubmit: SubmitHandler<IPostReq> = async (data) => {
+        setIsShow(false);
         await userPostCreate(data).unwrap();
     };
     return (

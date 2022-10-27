@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Link from "next/link";
 import { useRouter } from "next/router";
-import { ChangeEvent, useState } from "react";
 import { FC } from "react";
-import { myLoader } from "../../loader/Image-loader";
+import { GrFormView } from "react-icons/gr";
 import { IPost } from "../../types/post.type";
+import { Button } from "../button/Button";
 import UserAvatar from "../user-avatar/UserAvatar";
 import style from "./HomePosts.module.sass";
 
@@ -20,36 +20,37 @@ const HomePosts: FC<IPost> = ({
     const router = useRouter();
 
     return (
-        <>
-            <div className={style.block}>
-                <Image
-                    loader={myLoader}
-                    src={picture}
-                    width={100}
-                    height={80}
-                    className={style.block_image}
-                />
-                <div
-                    className={style.block_post}
-                    onClick={() => router.push(`posts/${id}`)}
-                >
-                    <span>{title}</span>
-                    <span>{description}</span>
-                </div>
-                <div>
-                    <span>{location}</span>
-                    <span>{views}</span>
-                </div>
+        <div className={style.block}>
+            <div className={style.block_title}>
+                <Link href={`posts/${id}`}>
+                    <a className={style.block_title__link}>{title}</a>
+                </Link>
+                <p>{description}</p>
+            </div>
+            <div className={style.block_body}>
+                <span>Место проведения {location}</span>
+                <span className={style.block_body__views}>
+                    <GrFormView fontSize={22} /> {views}
+                </span>
+            </div>
+            <Link href={`posts/${id}`}>
+                <a className={style.block_body__infBtn}>Узнать больше...</a>
+            </Link>
+            <div className={style.block_footer}>
                 {userId && (
                     <div
-                        className={style.block_user}
+                        className={style.block_footer__user}
                         onClick={() => router.push(`profile/${id}`)}
                     >
                         <UserAvatar id={userId} />
                     </div>
                 )}
+                <Button className={style.block_footer__joinBtn}>
+                    Присоединиться
+                </Button>
+                <div></div>
             </div>
-        </>
+        </div>
     );
 };
 

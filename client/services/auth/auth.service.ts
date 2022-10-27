@@ -18,7 +18,6 @@ export const AuthService = {
         name: string,
         surname: string
     ) {
-        console.log(surname);
         const response = await axiosRequest.post("auth/register", {
             email,
             password,

@@ -1,5 +1,5 @@
-import { useRouter } from "next/router";
 import { BsSearch } from "react-icons/bs";
+import { useOutside } from "../../../../hooks/useOutside";
 import style from "./Search.module.sass";
 import SearchItem from "./searchItem/SearchItem";
 import { useSearch } from "./useSearch";
@@ -7,24 +7,33 @@ import { useSearch } from "./useSearch";
 const Search = () => {
     const { searchTerm, searchResults, handleChange, setSearchTerm } =
         useSearch();
+
+    const { ref, isShow, setIsShow } = useOutside(true);
     return (
         <div className={style.search}>
             <div className={style.search_block}>
-                <BsSearch />
                 <input
-                    type="text"
+                    type="search"
                     placeholder="Search"
                     value={searchTerm}
                     onChange={handleChange}
                     className={style.search_block__input}
+                    onClick={() => setIsShow(true)}
                 />
+                <BsSearch className={style.search_block__icon} />
             </div>
-            <ul>
-                {searchTerm &&
-                    searchResults.map((item) => (
-                        <SearchItem post={item} setSearchTerm={setSearchTerm} />
-                    ))}
-            </ul>
+            {searchTerm && isShow && (
+                <div className={style.search_results} ref={ref}>
+                    <ul>
+                        {searchResults.map((item) => (
+                            <SearchItem
+                                post={item}
+                                setSearchTerm={setSearchTerm}
+                            />
+                        ))}
+                    </ul>
+                </div>
+            )}
         </div>
     );
 };

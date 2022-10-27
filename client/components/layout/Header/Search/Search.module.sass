@@ -1,6 +1,38 @@
 .search
-    position: absolute
+    width: 500px
+    height: 40px
+    position: relative
     &_block
+        display: inline-flex
+        position: relative
+        border-radius: 30px
         &__input
             width: 500px
-            height: 30px
+            height: 40px
+            outline: none
+            border-radius: 20px
+            padding: 0 15px 0 30px
+        &__icon
+            position: absolute
+            width: 15px
+            height: 15px
+            left: 10px
+            top: 50%
+            transform: translateY(-50%)
+            order: -1
+    &_results
+        width: 100%
+        max-height: 200px
+        border-radius: 20px
+        position: absolute
+        background-color: #ffff
+        top: calc(100% + 6px)
+        ul
+            padding-left: 20px
+            li
+                list-style-type: none
+                padding: 10px
+                font-weight: 500
+                font-size: 14px
+                &:hover
+                    background-color: yellow

@@ -1,3 +1,47 @@
 .block
-    &_user
-        margin-top: 50px
+    width: 90%
+    height: 90%
+    padding: 15px
+    display: flex
+    flex-direction: column 
+    justify-content: space-between
+    &_body
+        display: flex
+        flex-direction: column
+        justify-content: space-between
+        &__views
+            display: flex
+            align-items: center
+            margin-top: 8px
+            font-size: 16px
+        &__infBtn
+            font-size: 14px
+            text-decoration: none
+            color: black
+            &:hover
+                color: #AB82D4
+
+    &_title
+        &__link
+            color: black
+            font-weight: 700
+            font-size: 18px
+            text-decoration: none
+            &:hover
+                transition: 0.5s
+                color: #8E97B2
+    &_footer
+        display: flex
+        flex-direction: row
+        align-items: center
+        position: relative
+        &__joinBtn
+            width: 150px
+            height: 30px
+            font-size: 12px
+            border-radius: 8px
+            border: 1px solid #AB82D4
+            position: absolute
+            right: 20px
+            &:first-child
+                left: 200px

@@ -1,5 +1,4 @@
 import React from "react";
-import { api } from "../../../store/api/api";
 import Menu from "./menu/Menu";
 import { menu } from "./menu/menu.data";
 

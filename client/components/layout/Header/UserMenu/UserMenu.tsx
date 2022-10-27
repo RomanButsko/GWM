@@ -7,12 +7,15 @@ import { GrSchedulePlay } from "react-icons/gr";
 import { useActions } from "../../../../hooks/useAction";
 import { IProfileMenu } from "../ProfileMenu/profileMenu.interface";
 import style from "./UserMenu.module.sass";
+import { useRouter } from "next/router";
 
 const UserMenu: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const { logout } = useActions();
 
+    const router = useRouter();
     const logoutForm = () => {
         logout();
+        router.push("/");
         setMenu(!profileMenu);
     };
 
@@ -22,7 +25,7 @@ const UserMenu: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
                 <ul className={style.profile_list}>
                     <li>
                         <ImProfile />
-                        <Link href="profile/my-profile">
+                        <Link href="/profile/my-profile">
                             <a>Мой профиль</a>
                         </Link>
                     </li>

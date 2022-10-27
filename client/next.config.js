@@ -11,6 +11,17 @@ const nextConfig = {
     loader: 'custom',
     loaderFile: './loader/Image-loader.ts',
   },
+  headers: () => [
+    {
+      source: 'http://localhost:3000/profile/my-profile',
+      headers: [
+        {
+          key: 'Cache-Control',
+          value: 'no-store',
+        },
+      ],
+    },
+  ],
   // async rewrites() {
   //   return [
   //     { 

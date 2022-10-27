@@ -9,13 +9,11 @@ interface IMenu {
 
 const Menu: FC<IMenu> = ({ items }) => {
     return (
-        <>
-            <div className={style.menu}>
-                {items.map((item) => (
-                    <MenuItem elem={item} />
-                ))}
-            </div>
-        </>
+        <div className={style.menu}>
+            {items.map((listNavigation) => (
+                <MenuItem elem={listNavigation} />
+            ))}
+        </div>
     );
 };
 

@@ -17,11 +17,11 @@ const MenuItem: FC<{ elem: IMenuData }> = ({ elem }) => {
                     }
                 >
                     <div className={style.menu_items}>
-                        <div className={style.menu_item}>
-                            <span className={style.menu_item__icon}>
+                        <div className={style.menu_items__item}>
+                            <span className={style.menu_items__item__image}>
                                 {elem.icon && <elem.icon />}
-                            </span>
-                            <span className={style.menu_item__title}>
+                                </span>
+                            <span className={style.menu_items__item__title}>
                                 {elem.title}
                             </span>
                         </div>

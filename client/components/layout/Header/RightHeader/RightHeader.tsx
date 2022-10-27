@@ -1,11 +1,15 @@
+import Image from "next/image";
 import React, { useState } from "react";
 import { AiOutlineUserAdd } from "react-icons/ai";
 import { useOutside } from "../../../../hooks/useOutside";
 import { useAppSelector } from "../../../../hooks/useSelector";
+import { myLoader } from "../../../../loader/Image-loader";
 import { Button } from "../../../../ui/button/Button";
 import CreatePost from "../../../CreatePost/CreatePost";
 import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import style from "./RightHeader.module.sass";
+import { IoMdAdd } from "react-icons/io";
+import { GiReturnArrow } from "react-icons/gi";
 
 const RightHeader = () => {
     const [profileMenu, setProfileMenu] = useState(false);
@@ -26,16 +30,21 @@ const RightHeader = () => {
                     {user ? (
                         <>
                             <div className={style.newId} onClick={handleClick}>
-                                {user.email}
+                                <Image
+                                    loader={myLoader}
+                                    src={user.avatarPath}
+                                    width={40}
+                                    height={40}
+                                />
                             </div>
                             <button
                                 className={style.profile_block__post}
                                 onClick={() => setIsShow(!isShow)}
                             >
                                 {isShow ? (
-                                    <div>Отменить</div>
+                                    <GiReturnArrow />
                                 ) : (
-                                    <button>Добавить пост</button>
+                                    <IoMdAdd color="white" fontSize="30px" />
                                 )}
                             </button>
                             {isShow && (
@@ -45,7 +54,7 @@ const RightHeader = () => {
                                         style.profile_block__post__create
                                     }
                                 >
-                                    <CreatePost />
+                                    <CreatePost setIsShow={setIsShow} />
                                 </div>
                             )}
                         </>
