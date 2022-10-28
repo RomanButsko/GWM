@@ -8,12 +8,10 @@ const nextConfig = {
   },
   images: {
     domains: ['localhost'],
-    loader: 'custom',
-    loaderFile: './loader/Image-loader.ts',
   },
   headers: () => [
     {
-      source: 'http://localhost:3000/profile/my-profile',
+      source: '/profile/my-profile',
       headers: [
         {
           key: 'Cache-Control',

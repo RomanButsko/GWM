@@ -11,6 +11,7 @@ const UploadField: FC<IUploadField> = ({ title, onChange, folder, id }) => {
             {title && <h2>{title}</h2>}
             <label>
                 <span>Выберите файл</span>
+                <br></br>
                 <input type="file" onChange={uploadFile} />
             </label>
         </div>

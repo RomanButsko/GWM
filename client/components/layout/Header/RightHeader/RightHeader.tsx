@@ -10,6 +10,7 @@ import ProfileMenu from "../ProfileMenu/ProfileMenu";
 import style from "./RightHeader.module.sass";
 import { IoMdAdd } from "react-icons/io";
 import { GiReturnArrow } from "react-icons/gi";
+import AnimationModal from "../../../../ui/modal/AnimationModal";
 
 const RightHeader = () => {
     const [profileMenu, setProfileMenu] = useState(false);
@@ -49,12 +50,18 @@ const RightHeader = () => {
                             </button>
                             {isShow && (
                                 <div
-                                    ref={ref}
+                                    // ref={ref}
                                     className={
                                         style.profile_block__post__create
                                     }
                                 >
-                                    <CreatePost setIsShow={setIsShow} />
+                                    <AnimationModal
+                                        opened={isShow}
+                                        onClose={() => setIsShow(false)}
+                                        windowView={"createPost"}
+                                    >
+                                        <CreatePost setIsShow={setIsShow} />
+                                    </AnimationModal>
                                 </div>
                             )}
                         </>

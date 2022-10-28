@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FC } from "react";
 import useAuth from "../../../../hooks/useAuth";
 import { useOutside } from "../../../../hooks/useOutside";
+import AnimationModal from "../../../../ui/modal/AnimationModal";
 import LoginForm from "../LoginForm/Login";
 import RegistationForm from "../RegisterForm/AuthRegisterForm";
 import UserMenu from "../UserMenu/UserMenu";
@@ -45,12 +46,24 @@ const ProfileMenu: FC<IProfileMenu> = (props) => {
                 isShow &&
                 ((signInModal && (
                     <div ref={ref} className={style.auth_forms__item}>
-                        <RegistationForm />
+                        <AnimationModal
+                            opened={isShow}
+                            onClose={() => setIsShow(false)}
+                            windowView={"register"}
+                        >
+                            <RegistationForm />
+                        </AnimationModal>
                     </div>
                 )) ||
                     (loginModal && (
                         <div ref={ref} className={style.auth_forms__item}>
-                            <LoginForm {...props} />
+                            <AnimationModal
+                                opened={isShow}
+                                onClose={() => setIsShow(false)}
+                                windowView={"login"}
+                            >
+                                <LoginForm {...props} />
+                            </AnimationModal>
                         </div>
                     )))}
 

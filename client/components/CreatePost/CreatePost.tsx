@@ -8,13 +8,18 @@ import { IPostReq } from "../../types/post.type";
 import { Button } from "../../ui/button/Button";
 import AuthNameField from "../../ui/field/AuthNameField";
 import { Field } from "../../ui/field/Fields";
+import TextArea from "../../ui/text-area/TextArea";
 import UploadField from "../../ui/upload-field/UploadField";
 import { ICreatePost } from "./createPost.interface";
 import style from "./CreatePost.module.sass";
+import { FaMapMarkedAlt } from "react-icons/fa";
+import { BsCalendarDate } from "react-icons/bs";
+import DatePicker from "react-multi-date-picker";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
 
+    const [valueDate, setDate] = useState<Date>(new Date());
     const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
 
     const { user } = useAuth();
@@ -40,13 +45,24 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
         <>
             {user && modalCreate && (
                 <div className={style.createPost}>
+                    <div className={style.createPost_header}>
+                        <div className={style.createPost_header__title}>
+                            Создать свое мероприятие
+                        </div>
+                        <button
+                            className={style.createPost_header__close}
+                            onClick={() => setIsShow(false)}
+                        >
+                            X
+                        </button>
+                    </div>
                     {isLoading && <div>Идет загрузка...</div>}
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <AuthNameField
                             name={"Заголовок"}
-                            fieldClass={style.create}
-                            legendClass={style.create_title}
-                            blockClass={style.block_name}
+                            blockClass={style.block_title}
+                            fieldClass={style.block_title__field}
+                            legendClass={style.create_title__legend}
                         >
                             <Field
                                 {...register("title", {
@@ -63,11 +79,11 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                         </AuthNameField>
                         <AuthNameField
                             name={"Описание"}
-                            fieldClass={style.create}
-                            legendClass={style.create_title}
-                            blockClass={style.block_name}
+                            fieldClass={style.block_descr__field}
+                            legendClass={style.block_descr__legend}
+                            blockClass={style.block_descr}
                         >
-                            <Field
+                            <TextArea
                                 {...register("description", {
                                     required: "Поле обязательно",
                                     minLength: {
@@ -76,46 +92,59 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                             "Поле не может быть меньше 3 симоволов",
                                     },
                                 })}
-                                required
-                                className={style.create_input}
+                                className={style.block_descr__textarea}
                             />
                         </AuthNameField>
                         <AuthNameField
                             name={"Дата"}
-                            fieldClass={style.create}
-                            legendClass={style.create_title}
-                            blockClass={style.block_birthday}
+                            fieldClass={style.block_date__field}
+                            legendClass={style.block_date__legend}
+                            blockClass={style.block_date}
                         >
-                            <Field
-                                {...register("date", {
-                                    required: "Поле обязательно",
-                                    valueAsDate: true,
-                                })}
-                                required
-                                type="date"
-                                className={style.create_input}
-                                placeholder="00/00/0000"
+                            <Controller
+                                control={control}
+                                name="date"
+                                rules={{ required: true }}
+                                render={({
+                                    field: { onChange, name, value },
+                                    fieldState: { invalid, isDirty },
+                                    formState: { errors },
+                                }) => (
+                                    <>
+                                        <DatePicker
+                                            value={value || ""}
+                                            onChange={(date) => {
+                                                onChange(
+                                                    date?.isValid ? date : ""
+                                                );
+                                            }}
+                                        />
+                                    </>
+                                )}
                             />
+                            <BsCalendarDate fontSize={20} />
                         </AuthNameField>
-                        <Controller
-                            control={control}
-                            name="picture"
-                            render={({ field: { onChange } }) => (
-                                <UploadField
-                                    title={"Загрузите фото"}
-                                    onChange={(value: IMediaResponse) =>
-                                        onChange(value.url)
-                                    }
-                                    folder="posts"
-                                    id={user.id}
-                                />
-                            )}
-                        />
+                        <div className={style.block_picture}>
+                            <Controller
+                                control={control}
+                                name="picture"
+                                render={({ field: { onChange } }) => (
+                                    <UploadField
+                                        title={"Загрузите фото"}
+                                        onChange={(value: IMediaResponse) =>
+                                            onChange(value.url)
+                                        }
+                                        folder="posts"
+                                        id={user.id}
+                                    />
+                                )}
+                            />
+                        </div>
                         <AuthNameField
                             name={"Место проведения"}
-                            fieldClass={style.create}
-                            legendClass={style.create_title}
-                            blockClass={style.block_name}
+                            fieldClass={style.block_location__field}
+                            legendClass={style.block_location__legend}
+                            blockClass={style.block_location}
                         >
                             <Field
                                 {...register("location", {
@@ -124,12 +153,13 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                 required
                                 className={style.create_input}
                             />
+                            <FaMapMarkedAlt fontSize={20} />
                         </AuthNameField>
-                        <div className={style.sendForm}>
+                        <div className={style.block_sendForm}>
                             <Button
                                 type="submit"
                                 value="Зарегестрироваться"
-                                // onClick={handleSubmit("good")}
+                                className={style.block_sendForm__btn}
                             >
                                 Опубликовать
                             </Button>
