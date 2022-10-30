@@ -3,7 +3,7 @@ import React from "react";
 import { FC } from "react";
 import { myLoader } from "../../loader/Image-loader";
 import { api } from "../../store/api/api";
-import style from './UserAvatar.module.sass'
+import style from "./UserAvatar.module.sass";
 
 const UserAvatar: FC<{ id: number }> = ({ id }) => {
     const { data, isSuccess } = api.useGetUserByIdQuery(id);
@@ -15,8 +15,8 @@ const UserAvatar: FC<{ id: number }> = ({ id }) => {
                     <Image
                         loader={myLoader}
                         src={data.avatarPath}
-                        width={60}
-                        height={60}
+                        width={40}
+                        height={40}
                         className={style.userPhoto}
                     />
                 </>

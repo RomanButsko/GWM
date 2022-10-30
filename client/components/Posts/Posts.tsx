@@ -1,7 +1,6 @@
 import { useRouter } from "next/router";
 import React from "react";
 import { FC } from "react";
-import { UserService } from "../../services/user.service";
 import { IHomePosts } from "../pages/HomePage/home.interface";
 import PostNew from "./newOnePost/PostNew";
 import PopularPosts from "./popularPosts/PopularPosts";
@@ -13,6 +12,7 @@ const Posts: FC<IHomePosts> = ({ randomPost, newPosts, mostPopularPosts }) => {
 
     return (
         <div className={style.post}>
+            <div id="map" className={style.map}></div>
             <div className={style.post_random}>
                 {<RandomPost {...randomPost} />}
             </div>

@@ -1,12 +1,12 @@
 import { IPost, IPostReq } from "./../../types/post.type";
 import { ApiURL } from "./../../api/axios";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
-import { IChangeAvatar, IUser } from "../../types/user.types";
+import { IActiveUser, IChangeAvatar, IUser } from "../../types/user.types";
 import { TypeRootState } from "../store";
 
 export const api = createApi({
     reducerPath: "api",
-    tagTypes: ["Posts", "User"],
+    tagTypes: ["Posts", "User", "ActiveUser"],
     baseQuery: fetchBaseQuery({
         baseUrl: ApiURL,
         prepareHeaders: (headers, { getState }) => {
@@ -45,6 +45,9 @@ export const api = createApi({
                       ]
                     : [{ type: "Posts", id: "LIST" }],
         }),
+        findActiveUserForPost: builder.query<IActiveUser & IPost, string>({
+            query: (id: string) => `user/baseDataUser/${id}`,
+        }),
         createPost: builder.mutation<IPost, Partial<IPostReq>>({
             query: (body) => ({
                 url: `posts/create`,
@@ -61,6 +64,20 @@ export const api = createApi({
                 url: `user/${id}`,
                 method: "PATCH",
                 body: data,
+            }),
+            invalidatesTags: [{ type: "User", id: "LIST" }],
+        }),
+        joinToEvent: builder.mutation<IUser & IPost, { id: string }>({
+            query: ({ id }) => ({
+                url: `posts/join/${id}`,
+                method: "POST",
+            }),
+            invalidatesTags: [{ type: "User", id: "LIST" }],
+        }),
+        leaveEvent: builder.mutation<IUser & IPost, { id: string }>({
+            query: ({ id }) => ({
+                url: `posts/leaveEvent/${id}`,
+                method: "POST",
             }),
             invalidatesTags: [{ type: "User", id: "LIST" }],
         }),

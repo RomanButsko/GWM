@@ -45,7 +45,7 @@ const ProfileMenu: FC<IProfileMenu> = (props) => {
             {!user &&
                 isShow &&
                 ((signInModal && (
-                    <div ref={ref} className={style.auth_forms__item}>
+                    <div className={style.auth_forms__item}>
                         <AnimationModal
                             opened={isShow}
                             onClose={() => setIsShow(false)}
@@ -56,7 +56,7 @@ const ProfileMenu: FC<IProfileMenu> = (props) => {
                     </div>
                 )) ||
                     (loginModal && (
-                        <div ref={ref} className={style.auth_forms__item}>
+                        <div className={style.auth_forms__item}>
                             <AnimationModal
                                 opened={isShow}
                                 onClose={() => setIsShow(false)}

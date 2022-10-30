@@ -2,6 +2,7 @@ export interface IPost extends IPostReq {
     id: number;
     views: number;
     userId: number;
+    joinUser: number[];
 }
 
 export interface IPostReq {

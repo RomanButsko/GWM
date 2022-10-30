@@ -22,7 +22,7 @@ export const registerUser = createAsyncThunk<IUser, IUserRegister>(
                 surname
             );
             toastr.success("Регистрация", "прошла успешно");
-            return response;
+            return response.data;
         } catch (e) {
             toastrError(e);
             return thunkApi.rejectWithValue(e);

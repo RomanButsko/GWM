@@ -1,4 +1,4 @@
-import { IUser } from "./../types/user.types";
+import { IActiveUser, IUser } from "./../types/user.types";
 import { axiosRequest } from "../api/axios";
 
 export const UserService = {

@@ -1,18 +1,24 @@
-// import React, { useState } from "react";
-// import { FC } from "react";
-// import "react-calendar/dist/Calendar.css";
-// import DatePicker from 'react-date-picker';
+import React, { useState } from "react";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import style from "./Calendar.module.sass";
 
-// const Caledar: FC<{ setDate: any; value: Date }> = ({ setDate, value }) => {
-//     return (
-//         <div>
-//             <DatePicker
-//                 placeholderText="Select date"
-//                 onChange={(date) => field.onChange(date)}
-//                 selected={field.value}
-//             />
-//         </div>
-//     );
-// };
+const Caledar = () => {
+    const [valueDate, setDate] = useState<Date>(new Date());
+    return (
+        <DatePicker
+            selected={valueDate}
+            onChange={(date: Date) => setDate(date)}
+            placeholderText="Укажите дату мероприятия"
+            minDate={new Date()}
+            showDisabledMonthNavigation
+            showTimeInput
+            timeInputLabel="Время:"
+            withPortal
+            dateFormat="MMMM d, yyyy h:mm aa"
+            className={style.calendar}
+        />
+    );
+};
 
-// export default Caledar;
+export default Caledar;

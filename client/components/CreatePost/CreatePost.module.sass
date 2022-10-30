@@ -36,8 +36,17 @@
             resize: none
             font-size: 16px
     &_date
+        position: relative
         width: 60%
         margin-top: 20px
+        z-index: 2
+        &__img
+            position: absolute
+            right: 5%
+            top: 50%
+            font-size: 20px
+            transform: translateY(-40%)
+            z-index: 1
         &__field
             border-radius: 10px
             border: 1px solid #CCCCCC
@@ -47,8 +56,15 @@
         top: 40%
         transform: translateY(-50%)
     &_location
+        position: relative
         width: 60%
         margin-top: 20px 
+        &__img
+            position: absolute
+            right: 5%
+            top: 50%
+            font-size: 20px
+            transform: translateY(-40%)
         &__field
             border-radius: 10px
             border: 1px solid #CCCCCC

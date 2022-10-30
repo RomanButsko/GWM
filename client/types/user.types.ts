@@ -18,9 +18,15 @@ export interface IUser extends Base {
     dislike: number;
     accessT: string;
     posts: IPostUser[];
+    joinPost: number[];
 }
 
 export type IUserProfile = Omit<IUser, "id" | "password" | "accessT">;
+
+export type IActiveUser = Pick<
+    IUser,
+    "id" | "name" | "surname" | "date" | "city" | "avatarPath"
+>;
 
 export interface IUserAuth {
     user: IUser | null;

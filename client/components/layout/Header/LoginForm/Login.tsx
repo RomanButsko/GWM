@@ -9,6 +9,7 @@ import { useActions } from "../../../../hooks/useAction";
 import useAuth from "../../../../hooks/useAuth";
 import { IProfileMenu } from "../ProfileMenu/profileMenu.interface";
 import { FC } from "react";
+import Router from "next/router";
 
 const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const {
@@ -34,6 +35,7 @@ const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const onSubmit: SubmitHandler<IUserLogin> = (data) => {
         login(data);
         setMenu(!profileMenu);
+        Router.reload();
     };
 
     return (

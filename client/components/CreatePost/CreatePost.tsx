@@ -14,12 +14,12 @@ import { ICreatePost } from "./createPost.interface";
 import style from "./CreatePost.module.sass";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
-import DatePicker from "react-multi-date-picker";
+import Caledar from "../../ui/calendar/Caledar";
+import Router from "next/router";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
 
-    const [valueDate, setDate] = useState<Date>(new Date());
     const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
 
     const { user } = useAuth();
@@ -40,6 +40,7 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const onSubmit: SubmitHandler<IPostReq> = async (data) => {
         setIsShow(false);
         await userPostCreate(data).unwrap();
+        Router.reload();
     };
     return (
         <>
@@ -104,25 +105,13 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                             <Controller
                                 control={control}
                                 name="date"
-                                rules={{ required: true }}
-                                render={({
-                                    field: { onChange, name, value },
-                                    fieldState: { invalid, isDirty },
-                                    formState: { errors },
-                                }) => (
+                                render={({ field: { onChange, value } }) => (
                                     <>
-                                        <DatePicker
-                                            value={value || ""}
-                                            onChange={(date) => {
-                                                onChange(
-                                                    date?.isValid ? date : ""
-                                                );
-                                            }}
-                                        />
+                                        <Caledar />
                                     </>
                                 )}
                             />
-                            <BsCalendarDate fontSize={20} />
+                            <BsCalendarDate className={style.block_date__img} />
                         </AuthNameField>
                         <div className={style.block_picture}>
                             <Controller
@@ -153,7 +142,9 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                 required
                                 className={style.create_input}
                             />
-                            <FaMapMarkedAlt fontSize={20} />
+                            <FaMapMarkedAlt
+                                className={style.block_location__img}
+                            />
                         </AuthNameField>
                         <div className={style.block_sendForm}>
                             <Button
