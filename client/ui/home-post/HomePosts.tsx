@@ -8,6 +8,7 @@ import { IPost } from "../../types/post.type";
 import { Button } from "../button/Button";
 import UserAvatar from "../user-avatar/UserAvatar";
 import ActiveUser from "./activeUser/ActiveUser";
+import JoinedUser from "./activeUser/JoinedUser";
 import style from "./HomePosts.module.sass";
 
 const HomePosts: FC<IPost> = ({
@@ -41,6 +42,10 @@ const HomePosts: FC<IPost> = ({
             setActivePost("mypost");
         }
     }, [data]);
+
+    useEffect(() => {
+        setJoinedUser(joinUser.length);
+    }, [joinUser]);
 
     const handlJoinToEvent = () => {
         joinToEvent({ id: String(id) });
@@ -84,17 +89,21 @@ const HomePosts: FC<IPost> = ({
                             <div className={style.block_footer__userAvatar}>
                                 {joinUser && (
                                     <div>
-                                        {joinUser.map((userId) => {
-                                            return (
-                                                <ActiveUser
-                                                    userId={userId}
-                                                    joinedUser={joinedUser}
-                                                    setJoinedUser={
-                                                        setJoinedUser
-                                                    }
-                                                />
-                                            );
+                                        {joinUser.map((userId, index) => {
+                                            if (index < 3) {
+                                                return (
+                                                    <ActiveUser
+                                                        userId={userId}
+                                                    />
+                                                );
+                                            } else {
+                                                return (
+                                                    <button>и другие</button>
+                                                );
+                                            }
                                         })}
+
+                                        {<JoinedUser joinedUser={joinedUser} />}
                                     </div>
                                 )}
                             </div>

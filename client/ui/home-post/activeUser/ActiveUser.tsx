@@ -8,14 +8,10 @@ import userSvg from "./../../../asset/user-svg.svg";
 import { IActive } from "./activeUser.interface";
 import style from "./ActiveUser.module.sass";
 
-const ActiveUser: FC<IActive> = ({ userId, joinedUser, setJoinedUser }) => {
+const ActiveUser: FC<IActive> = ({ userId }) => {
     const { data, isSuccess } = api.useFindActiveUserForPostQuery(
         String(userId)
     );
-
-    useEffect(() => {
-        setJoinedUser(joinedUser + 1);
-    }, []);
 
     return (
         <>
@@ -28,13 +24,6 @@ const ActiveUser: FC<IActive> = ({ userId, joinedUser, setJoinedUser }) => {
                     className={style.block_user}
                 />
             )}
-            <div>
-                {joinedUser === 1
-                    ? `${joinedUser} участник`
-                    : joinedUser > 1 && joinedUser < 5
-                    ? `${joinedUser} участника`
-                    : `${joinedUser} участников`}
-            </div>
         </>
     );
 };
