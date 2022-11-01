@@ -7,4 +7,7 @@ export interface IPostUser extends Base {
     date: Date;
     location: string;
     userId: number;
+    views: string;
+    picture: string;
+    joinUser: number[];
 }

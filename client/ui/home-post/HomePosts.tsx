@@ -44,7 +44,10 @@ const HomePosts: FC<IPost> = ({
     }, [data]);
 
     useEffect(() => {
-        setJoinedUser(joinUser.length);
+        if (!joinUser) setJoinedUser(0);
+        else {
+            setJoinedUser(joinUser?.length);
+        }
     }, [joinUser]);
 
     const handlJoinToEvent = () => {
@@ -102,10 +105,9 @@ const HomePosts: FC<IPost> = ({
                                                 );
                                             }
                                         })}
-
-                                        {<JoinedUser joinedUser={joinedUser} />}
                                     </div>
                                 )}
+                                {<JoinedUser joinedUser={joinedUser} />}
                             </div>
                             {activePost === "join" ? (
                                 <Button

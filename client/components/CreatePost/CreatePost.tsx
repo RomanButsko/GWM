@@ -14,7 +14,7 @@ import { ICreatePost } from "./createPost.interface";
 import style from "./CreatePost.module.sass";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
-import Caledar from "../../ui/calendar/Caledar";
+import Caledar from "../../ui/calendar/event/Caledar";
 import Router from "next/router";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
@@ -106,9 +106,12 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                 control={control}
                                 name="date"
                                 render={({ field: { onChange, value } }) => (
-                                    <>
-                                        <Caledar />
-                                    </>
+                                    <Caledar
+                                        onChange={(value: Date) =>
+                                            onChange(value)
+                                        }
+                                        value={value}
+                                    />
                                 )}
                             />
                             <BsCalendarDate className={style.block_date__img} />
@@ -119,7 +122,7 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                 name="picture"
                                 render={({ field: { onChange } }) => (
                                     <UploadField
-                                        title={"Загрузите фото"}
+                                        title={"Перетащите или выберите фото"}
                                         onChange={(value: IMediaResponse) =>
                                             onChange(value.url)
                                         }

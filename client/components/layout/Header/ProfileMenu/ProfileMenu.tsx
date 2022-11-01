@@ -33,6 +33,10 @@ const ProfileMenu: FC<IProfileMenu> = (props) => {
         changeShowModal();
     };
 
+    const closeModal = () => {
+        setIsShow(false);
+        props.setMenu(false);
+    };
     return (
         <div className={style.auth}>
             {!user && authModal && (
@@ -48,7 +52,7 @@ const ProfileMenu: FC<IProfileMenu> = (props) => {
                     <div className={style.auth_forms__item}>
                         <AnimationModal
                             opened={isShow}
-                            onClose={() => setIsShow(false)}
+                            onClose={closeModal}
                             windowView={"register"}
                         >
                             <RegistationForm />
@@ -59,9 +63,12 @@ const ProfileMenu: FC<IProfileMenu> = (props) => {
                         <div className={style.auth_forms__item}>
                             <AnimationModal
                                 opened={isShow}
-                                onClose={() => setIsShow(false)}
+                                onClose={closeModal}
                                 windowView={"login"}
                             >
+                                <h2 className={style.auth_forms__item__login}>
+                                    Войти
+                                </h2>
                                 <LoginForm {...props} />
                             </AnimationModal>
                         </div>

@@ -66,15 +66,13 @@ const RightHeader = () => {
                             )}
                         </>
                     ) : (
-                        <div>
-                            <AiOutlineUserAdd fill="#ffff" fontSize={28} />
-                            <Button
-                                className={style.profile_btn}
-                                onClick={handleClick}
-                            >
-                                Профиль
-                            </Button>
-                        </div>
+                        <Button
+                            className={style.profile_btn}
+                            onClick={handleClick}
+                        >
+                            <AiOutlineUserAdd fill="#ffff" fontSize={25} />
+                            Профиль
+                        </Button>
                     )}
                 </div>
                 {profileMenu && (

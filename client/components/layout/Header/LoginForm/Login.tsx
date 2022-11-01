@@ -26,6 +26,7 @@ const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const { isLoading } = useAuth();
 
     const { login } = useActions();
+
     useEffect(() => {
         if (formState.isSubmitSuccessful) {
             reset();
@@ -79,7 +80,7 @@ const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
                         placeholder="Пароль"
                     />
                 </AuthNameField>
-                <div className={style.sendForm}>
+                <div className={style.login_sendForm}>
                     <Button
                         type="submit"
                         value="Зарегестрироваться"

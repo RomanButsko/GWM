@@ -1,6 +1,4 @@
 import { errorCatch } from "./../../utils/api.utils";
-import { SetStateAction } from "react";
-import { Dispatch } from "react";
 import { MediaService } from "../../services/media/media.service";
 import { ChangeEvent } from "react";
 
@@ -24,6 +22,7 @@ export const useUploadField = (
 
         const formData = new FormData();
         formData.append("media", files[0]);
+        console.log(formData.get("media"));
         return await dataMutate(formData);
     };
 

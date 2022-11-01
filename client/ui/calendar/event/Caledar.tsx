@@ -1,14 +1,15 @@
 import React, { useState } from "react";
+import { FC } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { ICalendar } from "../calendar.interface";
 import style from "./Calendar.module.sass";
 
-const Caledar = () => {
-    const [valueDate, setDate] = useState<Date>(new Date());
+const Caledar: FC<ICalendar> = ({ onChange, value }) => {
     return (
         <DatePicker
-            selected={valueDate}
-            onChange={(date: Date) => setDate(date)}
+            selected={value}
+            onChange={(date: Date) => onChange(date)}
             placeholderText="Укажите дату мероприятия"
             minDate={new Date()}
             showDisabledMonthNavigation

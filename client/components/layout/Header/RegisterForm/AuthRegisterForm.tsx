@@ -10,6 +10,8 @@ import AuthNameField from "../../../../ui/field/AuthNameField";
 import { Field } from "../../../../ui/field/Fields";
 import { Button } from "../../../../ui/button/Button";
 import { useActions } from "../../../../hooks/useAction";
+import Caledar from "../../../../ui/calendar/event/Caledar";
+import RegisterCalendar from "../../../../ui/calendar/register/RegisterCalendar";
 
 const RegistationForm = () => {
     const [activeCheckbox, setActiveCheckbox] = useState<string>("");
@@ -43,6 +45,7 @@ const RegistationForm = () => {
     };
 
     const onSubmit: SubmitHandler<IUserRegister> = (data) => {
+        console.log(data);
         data.gender = data.gender[0];
         registerUser(data);
     };
@@ -101,15 +104,15 @@ const RegistationForm = () => {
                         legendClass={style.create_title}
                         blockClass={style.block_birthday}
                     >
-                        <Field
-                            {...register("date", {
-                                required: "Поле обязательно",
-                                valueAsDate: true,
-                            })}
-                            required
-                            type="date"
-                            className={style.create_input}
-                            placeholder="00/00/0000"
+                        <Controller
+                            control={control}
+                            name="date"
+                            render={({ field: { onChange, value } }) => (
+                                <RegisterCalendar
+                                    value={value}
+                                    onChange={(value: Date) => onChange(value)}
+                                />
+                            )}
                         />
                     </AuthNameField>
                     <div className={style.gender}>

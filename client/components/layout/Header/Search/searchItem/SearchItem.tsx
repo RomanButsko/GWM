@@ -11,6 +11,7 @@ const SearchItem: FC<ISearchPost> = ({ post, setSearchTerm }) => {
         router.push(`/posts/${id}`);
         setSearchTerm("");
     };
+
     return (
         <li className={style.card} onClick={() => changeRouter(post.id)}>
             {post.title}

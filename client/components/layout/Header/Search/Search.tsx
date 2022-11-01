@@ -14,7 +14,7 @@ const Search = () => {
             <div className={style.search_block}>
                 <input
                     type="search"
-                    placeholder="Search"
+                    placeholder="Поиск"
                     value={searchTerm}
                     onChange={handleChange}
                     className={style.search_block__input}
@@ -25,12 +25,18 @@ const Search = () => {
             {searchTerm && isShow && (
                 <div className={style.search_results} ref={ref}>
                     <ul>
-                        {searchResults.map((item) => (
-                            <SearchItem
-                                post={item}
-                                setSearchTerm={setSearchTerm}
-                            />
-                        ))}
+                        {searchResults.length ? (
+                            searchResults.map((item) => (
+                                <SearchItem
+                                    post={item}
+                                    setSearchTerm={setSearchTerm}
+                                />
+                            ))
+                        ) : (
+                            <span className={style.search_results__error}>
+                                ничего не найдено
+                            </span>
+                        )}
                     </ul>
                 </div>
             )}
