@@ -3,6 +3,8 @@ export interface IUploadField {
     onChange: (...event: any) => any;
     folder?: string;
     id: number;
+    showBottomPhoto: boolean;
+    typeField: string;
 }
 
 export interface IStateType {

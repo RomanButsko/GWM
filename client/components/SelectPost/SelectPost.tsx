@@ -5,7 +5,7 @@ import { FC } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { myLoader } from "../../loader/Image-loader";
 import { IPost } from "../../types/post.type";
-import UserAvatar from "../../ui/user-avatar/UserAvatar";
+import UserAvatar from "../../ui/user-avatar/general/UserAvatar";
 import style from "./SelectPost.module.sass";
 
 const SelectPost: FC<IPost> = ({
@@ -34,7 +34,15 @@ const SelectPost: FC<IPost> = ({
             </div>
             <div>{location}</div>
             <span>Фото с предстоящего мероприятия</span>
-            <Image loader={myLoader} src={picture} width="100%" height="100%" />
+            {picture && (
+                <Image
+                    loader={myLoader}
+                    src={picture}
+                    width="100%"
+                    height="100%"
+                />
+            )}
+
             <div>{<UserAvatar id={userId} />}</div>
         </div>
     );

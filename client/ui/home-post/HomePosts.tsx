@@ -6,7 +6,7 @@ import { GrFormView } from "react-icons/gr";
 import { api } from "../../store/api/api";
 import { IPost } from "../../types/post.type";
 import { Button } from "../button/Button";
-import UserAvatar from "../user-avatar/UserAvatar";
+import UserAvatar from "../user-avatar/general/UserAvatar";
 import ActiveUser from "./activeUser/ActiveUser";
 import JoinedUser from "./activeUser/JoinedUser";
 import style from "./HomePosts.module.sass";
@@ -109,6 +109,14 @@ const HomePosts: FC<IPost> = ({
                                 )}
                                 {<JoinedUser joinedUser={joinedUser} />}
                             </div>
+                            <span
+                                className={"ymaps-geolink"}
+                                //                            data-type="biz"
+                                //   data-description="Московский офис Яндекса"
+                                //   data-bounds="[[55.729410, 37.584012],[55.738588, 37.598817]]">
+                            >
+                                Минск, ул.Одинцова, 115
+                            </span>
                             {activePost === "join" ? (
                                 <Button
                                     className={style.block_footer__joinBtn}

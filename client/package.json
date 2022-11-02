@@ -9,6 +9,7 @@
         "lint": "next lint"
     },
     "dependencies": {
+        "@pbe/react-yandex-maps": "^1.2.0",
         "@reduxjs/toolkit": "^1.8.5",
         "axios": "^1.1.2",
         "classnames": "^2.3.2",

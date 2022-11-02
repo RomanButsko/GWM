@@ -81,11 +81,7 @@ const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
                     />
                 </AuthNameField>
                 <div className={style.login_sendForm}>
-                    <Button
-                        type="submit"
-                        value="Зарегестрироваться"
-                        disabled={isLoading}
-                    >
+                    <Button type="submit" value="Зарегестрироваться">
                         Войти
                     </Button>
                 </div>

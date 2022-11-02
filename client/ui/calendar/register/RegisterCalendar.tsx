@@ -86,6 +86,7 @@ const RegisterCalendar: FC<ICalendar> = ({ value, onChange }) => {
             selected={value}
             onChange={(date: Date) => onChange(date)}
             placeholderText="Дата рождения"
+            maxDate={new Date()}
         />
     );
 };

@@ -11,13 +11,15 @@ const Header = () => {
     return (
         <div className={style.header}>
             <div className={style.header_image}>
-                <Image
-                    onClick={() => router.push("/")}
-                    src={logo}
-                    alt="logo"
-                    width={200}
-                    height={50}
-                />
+                {logo && (
+                    <Image
+                        onClick={() => router.push("/")}
+                        src={logo}
+                        alt="logo"
+                        width={200}
+                        height={50}
+                    />
+                )}
             </div>
             <div className={style.header_search}>
                 <Search />

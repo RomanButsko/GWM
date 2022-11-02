@@ -2,11 +2,19 @@ import React, { useEffect, useState } from "react";
 import { FC } from "react";
 import { IStateType, IUploadField } from "./upload-field.interface";
 import { useUploadField } from "./useUploadField";
-import style from "./UploadField.module.sass";
+import styles from "./UploadField.module.sass";
 import { useDropzone } from "react-dropzone";
 import Image from "next/image";
+import cn from "classnames";
 
-const UploadField: FC<IUploadField> = ({ title, onChange, folder, id }) => {
+const UploadField: FC<IUploadField> = ({
+    title,
+    onChange,
+    folder,
+    id,
+    showBottomPhoto,
+    typeField,
+}) => {
     const [files, setFiles] = useState<IStateType[]>([]);
 
     const { uploadFile } = useUploadField(onChange, id, folder);
@@ -27,11 +35,11 @@ const UploadField: FC<IUploadField> = ({ title, onChange, folder, id }) => {
     });
 
     const thumbs = files.map((file) => (
-        <div className={style.thumb} key={file.name}>
-            <div className={style.thumbInner}>
+        <div className={styles.thumb} key={file.name}>
+            <div className={styles.thumbInner}>
                 <Image
                     src={file.preview}
-                    className={style.img}
+                    className={styles.img}
                     width={300}
                     height={180}
                     onLoad={() => {
@@ -47,16 +55,22 @@ const UploadField: FC<IUploadField> = ({ title, onChange, folder, id }) => {
     }, []);
 
     return (
-        <section className={style.container}>
+        <section className={styles.container}>
             <div
                 {...getRootProps({ className: "dropzone" })}
-                className={style.container_window}
+                className={cn(styles.container_window, {
+                    [styles.container_window__userPage]: typeField === "page",
+                })}
                 onChange={uploadFile}
             >
                 <input {...getInputProps()} />
                 <p>{title}</p>
             </div>
-            <aside className={style.container_window__thumb}>{thumbs}</aside>
+            {showBottomPhoto && (
+                <aside className={styles.container_window__thumb}>
+                    {thumbs}
+                </aside>
+            )}
         </section>
     );
 };

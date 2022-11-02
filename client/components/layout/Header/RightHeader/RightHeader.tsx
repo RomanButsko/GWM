@@ -34,8 +34,9 @@ const RightHeader = () => {
                                 <Image
                                     loader={myLoader}
                                     src={user.avatarPath}
-                                    width={40}
-                                    height={40}
+                                    width={50}
+                                    height={50}
+                                    className={style.profile_avatar}
                                 />
                             </div>
                             <button
@@ -50,7 +51,6 @@ const RightHeader = () => {
                             </button>
                             {isShow && (
                                 <div
-                                    // ref={ref}
                                     className={
                                         style.profile_block__post__create
                                     }

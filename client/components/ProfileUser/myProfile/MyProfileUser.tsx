@@ -2,9 +2,10 @@ import React from "react";
 import { api } from "../../../store/api/api";
 import Image from "next/image";
 import { myLoader } from "../../../loader/Image-loader";
-import UserPageAvatar from "../../../ui/user-avatar/UserPageAvatar";
+import UserPageAvatar from "../../../ui/user-avatar/profile/UserPageAvatar";
 import style from "./ProfileUser.module.sass";
 import UserPosts from "../../Posts/userPosts/UserProfilePosts";
+import YandexMap from "../../../ui/map/Map";
 
 const MyProfile = () => {
     const { data } = api.useGetProfileQuery();
@@ -13,20 +14,31 @@ const MyProfile = () => {
         <div className={style.profile}>
             <h1 className={style.profile_title}>Мой профиль</h1>
             {data && (
-                <main>
-                    Фото
+                <main className={style.profile_main}>
                     <Image
                         loader={myLoader}
                         src={data.avatarPath}
-                        width={50}
-                        height={30}
+                        width={200}
+                        height={200}
+                        className={style.profile_image}
                     />
+
                     <UserPageAvatar id={data.id} />
-                    <div>
-                        My name {data?.name}
-                        My Posts
+                    <div className={style.profile_info}>
+                        <div className={style.profile_name}>
+                            <h5>{data.name}</h5>
+                            <h5>{data.surname}</h5>
+                        </div>
+                        <span className={style.profile_city}>{data.city}</span>
+                        <div className={style.profile_aboutMe}>
+                            <p>{data.aboutMe}</p>
+                        </div>
+                    </div>
+                    <div className={style.profile_posts}>
                         {data.posts?.map((item) => (
-                            <UserPosts {...item} />
+                            <div className={style.profile_posts__item}>
+                                <UserPosts {...item} />
+                            </div>
                         ))}
                     </div>
                 </main>

@@ -1,9 +1,11 @@
 import React from "react";
 import { FC } from "react";
 import { Controller, useForm } from "react-hook-form";
-import { IMediaResponse } from "../../../server/src/media/media.interface";
-import { api } from "../../store/api/api";
-import UploadField from "../upload-field/UploadField";
+import { FaLaptopHouse } from "react-icons/fa";
+import { IMediaResponse } from "../../../../server/src/media/media.interface";
+import { api } from "../../../store/api/api";
+import UploadField from "../../upload-field/UploadField";
+import style from "./UserPageAvatar.module.sass";
 
 const UserPageAvatar: FC<{ id: number }> = ({ id }) => {
     const { control } = useForm<{ picture: string }>({
@@ -30,6 +32,8 @@ const UserPageAvatar: FC<{ id: number }> = ({ id }) => {
                         }
                         folder="user-avatar"
                         id={id}
+                        showBottomPhoto={false}
+                        typeField="page"
                     />
                 )}
             />

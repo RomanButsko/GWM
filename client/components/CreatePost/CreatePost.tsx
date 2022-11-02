@@ -16,9 +16,12 @@ import { FaMapMarkedAlt } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
 import Caledar from "../../ui/calendar/event/Caledar";
 import Router from "next/router";
+import YandexMap from "../../ui/map/Map";
+import { useOutside } from "../../hooks/useOutside";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
+    const { ref, isShow, setIsShow: setIsShowMap } = useOutside(false);
 
     const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
 
@@ -128,6 +131,7 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                         }
                                         folder="posts"
                                         id={user.id}
+                                        showBottomPhoto={true}
                                     />
                                 )}
                             />
@@ -147,8 +151,18 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                             />
                             <FaMapMarkedAlt
                                 className={style.block_location__img}
+                                onClick={() => setIsShowMap(!isShow)}
                             />
                         </AuthNameField>
+                        {isShow && (
+                            <div ref={ref}>
+                                <YandexMap
+                                    post={true}
+                                    setMap={setIsShowMap}
+                                    showMap={isShow}
+                                />
+                            </div>
+                        )}
                         <div className={style.block_sendForm}>
                             <Button
                                 type="submit"
