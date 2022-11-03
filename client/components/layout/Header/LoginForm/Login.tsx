@@ -36,7 +36,6 @@ const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const onSubmit: SubmitHandler<IUserLogin> = (data) => {
         login(data);
         setMenu(!profileMenu);
-        Router.reload();
     };
 
     return (

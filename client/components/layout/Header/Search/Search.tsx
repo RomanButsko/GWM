@@ -1,5 +1,8 @@
+import { ChangeEvent } from "react";
+import { useState } from "react";
 import { BsSearch } from "react-icons/bs";
 import { useOutside } from "../../../../hooks/useOutside";
+import { MapService } from "../../../../services/map/map.service";
 import style from "./Search.module.sass";
 import SearchItem from "./searchItem/SearchItem";
 import { useSearch } from "./useSearch";

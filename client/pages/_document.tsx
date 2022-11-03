@@ -14,6 +14,14 @@ export default function Document() {
                     name="viewport"
                     content="width=device-width, initial-scale=1.0"
                 />
+                <script
+                    src="https://api-maps.yandex.ru/2.1/?apikey=1c3e1a0b-c5d3-4286-89a6-4878fd37de76&lang=ru_RU&load=Geolink"
+                    type="text/javascript"
+                ></script>
+                <script
+                    src="search_control_ppo.js"
+                    type="text/javascript"
+                ></script>
             </Head>
             <body>
                 <Main />

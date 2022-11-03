@@ -18,6 +18,7 @@ import Caledar from "../../ui/calendar/event/Caledar";
 import Router from "next/router";
 import YandexMap from "../../ui/map/Map";
 import { useOutside } from "../../hooks/useOutside";
+import SearchAdress from "../../ui/searchAddress/SearchAddress";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
@@ -142,12 +143,16 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                             legendClass={style.block_location__legend}
                             blockClass={style.block_location}
                         >
-                            <Field
-                                {...register("location", {
-                                    required: "Поле обязательно",
-                                })}
-                                required
-                                className={style.create_input}
+                            <Controller
+                                control={control}
+                                name="location"
+                                render={({ field: { onChange, value } }) => (
+                                    <SearchAdress
+                                        onChange={(address: string) =>
+                                            onChange(address)
+                                        }
+                                    />
+                                )}
                             />
                             <FaMapMarkedAlt
                                 className={style.block_location__img}

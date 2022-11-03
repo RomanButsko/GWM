@@ -69,7 +69,10 @@ const HomePosts: FC<IPost> = ({
                         <p>{description}</p>
                     </div>
                     <div className={style.block_body}>
-                        <span>Место проведения {location}</span>
+                        <span>
+                            Место проведения
+                            <span className={"ymaps-geolink"}>{location}</span>
+                        </span>
                         <span className={style.block_body__views}>
                             <GrFormView fontSize={22} /> {views || 0}
                         </span>
@@ -109,14 +112,6 @@ const HomePosts: FC<IPost> = ({
                                 )}
                                 {<JoinedUser joinedUser={joinedUser} />}
                             </div>
-                            <span
-                                className={"ymaps-geolink"}
-                                //                            data-type="biz"
-                                //   data-description="Московский офис Яндекса"
-                                //   data-bounds="[[55.729410, 37.584012],[55.738588, 37.598817]]">
-                            >
-                                Минск, ул.Одинцова, 115
-                            </span>
                             {activePost === "join" ? (
                                 <Button
                                     className={style.block_footer__joinBtn}

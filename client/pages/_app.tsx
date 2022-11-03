@@ -22,15 +22,12 @@ function MyApp({ Component, pageProps }: TypeAppProps) {
                     <Head>
                         <meta name="viewport" content="viewport-fit=cover" />
                     </Head>
-                    <Script
-                        src="https://api-maps.yandex.ru/2.1/?apikey=1c3e1a0b-c5d3-4286-89a6-4878fd37de76&lang=ru_RU&load=Geolink"
-                        type="text/javascript"
-                    ></Script>
-                    <Script
-                        src="search_control_ppo.js"
-                        type="text/javascript"
-                    ></Script>
-                    <YMaps>
+                    <YMaps
+                        query={{
+                            ns: "use-load-option",
+                            apikey: "1c3e1a0b-c5d3-4286-89a6-4878fd37de76",
+                        }}
+                    >
                         <Component {...pageProps} />;
                         {/* <ReduxToastr
                     timeOut={4000}
