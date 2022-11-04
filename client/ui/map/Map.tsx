@@ -13,13 +13,14 @@ import { FC } from "react";
 import { IYandexMap } from "./map.interface";
 import style from "./Map.module.sass";
 import cn from "classnames";
-import { FaMapMarkerAlt } from "react-icons/fa";
 
 const YandexMap: FC<IYandexMap> = ({
     clusterPoints,
     post,
     setMap,
     showMap,
+    width,
+    height,
 }) => {
     return (
         <>
@@ -34,8 +35,8 @@ const YandexMap: FC<IYandexMap> = ({
                             center: [53.90136779994891, 27.516049072335527],
                             zoom: 9,
                         }}
-                        width="66vw"
-                        height="84vh"
+                        width={width}
+                        height={height}
                         modules={["geocode"]}
                         // onLoad={(ymaps) => (ymaps.on. ('Москва'))}
                     >

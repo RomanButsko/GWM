@@ -1,23 +1,8 @@
-import axios from "axios";
-
-const token = "9598fe121798127836342dcf244e7fe8432f5e11";
+import { axiosRequest } from "./../../api/axios";
 
 export const MapService = {
-    async getAdress(adress: string) {
-        const response = await axios.post(
-            `https://suggestions.dadata.ru/suggestions/api/4_1/rs/suggest/address`,
-            {
-                mode: "cors",
-                headers: {
-                    "Content-Type": "application/json",
-                    Accept: "application/json",
-                    Authorization: "Token " + token,
-                },
-                body: JSON.stringify({ query: adress }),
-            }
-        );
-        console.log(response);
-        if (!response) return;
+    async getPointers() {
+        const response = await axiosRequest.get("posts/location");
         return response.data;
     },
 };

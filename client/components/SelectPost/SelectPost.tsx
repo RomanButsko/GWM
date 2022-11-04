@@ -4,7 +4,10 @@ import React from "react";
 import { FC } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { myLoader } from "../../loader/Image-loader";
+import { MapService } from "../../services/map/map.service";
+import { api } from "../../store/api/api";
 import { IPost } from "../../types/post.type";
+import YandexMap from "../../ui/map/Map";
 import UserAvatar from "../../ui/user-avatar/general/UserAvatar";
 import style from "./SelectPost.module.sass";
 
@@ -16,7 +19,10 @@ const SelectPost: FC<IPost> = ({
     views,
     picture,
     location,
+    id,
 }) => {
+    const { data } = api.useGetExactPointerQuery(id);
+
     const router = useRouter();
     return (
         <div className={style.post}>
@@ -42,8 +48,13 @@ const SelectPost: FC<IPost> = ({
                     height="100%"
                 />
             )}
-
             <div>{<UserAvatar id={userId} />}</div>
+            <YandexMap
+                post={false}
+                width={"900px"}
+                height={"400px"}
+                clusterPoints={data}
+            />
         </div>
     );
 };

@@ -165,6 +165,8 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                     post={true}
                                     setMap={setIsShowMap}
                                     showMap={isShow}
+                                    width={"66vw"}
+                                    height={"84vh"}
                                 />
                             </div>
                         )}

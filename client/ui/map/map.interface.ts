@@ -1,6 +1,8 @@
 export interface IYandexMap {
-    clusterPoints?: number[][];
+    clusterPoints?: any;
     post: boolean;
-    setMap: (arg0: boolean) => void;
-    showMap: boolean;
+    setMap?: (arg0: boolean) => void;
+    showMap?: boolean;
+    width: string;
+    height: string;
 }

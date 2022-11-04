@@ -4,9 +4,13 @@ import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IActiveUser, IChangeAvatar, IUser } from "../../types/user.types";
 import { TypeRootState } from "../store";
 
+interface IPointers {
+    location: number[][];
+}
+
 export const api = createApi({
     reducerPath: "api",
-    tagTypes: ["Posts", "User", "ActiveUser"],
+    tagTypes: ["Posts", "User", "ActiveUser", "Pointer"],
     baseQuery: fetchBaseQuery({
         baseUrl: ApiURL,
         prepareHeaders: (headers, { getState }) => {
@@ -44,6 +48,21 @@ export const api = createApi({
                           { type: "Posts", id: "LIST" },
                       ]
                     : [{ type: "Posts", id: "LIST" }],
+        }),
+        getExactPointer: builder.query<IPointers, number>({
+            query: (id) => `posts/location/${id}`,
+            // providesTags: (result) =>
+            //     result
+            //         ? [
+            //               ...result.location.map(() => ({
+            //                   type: "Pointer" as const,
+            //               })),
+            //               { type: "Pointer", id: "LIST" },
+            //           ]
+            //         : [{ type: "Pointer", id: "LIST" }],
+        }),
+        getAllPointers: builder.query<IPointers, void>({
+            query: () => "posts/location",
         }),
         findActiveUserForPost: builder.query<IActiveUser & IPost, string>({
             query: (id: string) => `user/baseDataUser/${id}`,

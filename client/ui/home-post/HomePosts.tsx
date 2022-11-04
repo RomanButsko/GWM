@@ -71,7 +71,9 @@ const HomePosts: FC<IPost> = ({
                     <div className={style.block_body}>
                         <span>
                             Место проведения
-                            <span className={"ymaps-geolink"}>{location}</span>
+                            <span className={"ymaps-geolink"}>
+                                {location.split(",").slice(1).join()}
+                            </span>
                         </span>
                         <span className={style.block_body__views}>
                             <GrFormView fontSize={22} /> {views || 0}
