@@ -5,7 +5,7 @@ import { IMenuData } from "./menu.interface";
 import style from "./Menu.module.sass";
 
 const MenuItem: FC<{ elem: IMenuData }> = ({ elem }) => {
-    const { asPath } = useRouter();
+    const { asPath, push } = useRouter();
     return (
         <>
             <Link href={elem.link}>
@@ -20,8 +20,11 @@ const MenuItem: FC<{ elem: IMenuData }> = ({ elem }) => {
                         <div className={style.menu_items__item}>
                             <span className={style.menu_items__item__image}>
                                 {elem.icon && <elem.icon />}
-                                </span>
-                            <span className={style.menu_items__item__title}>
+                            </span>
+                            <span
+                                className={style.menu_items__item__title}
+                                onClick={() => push(`${elem.link}`)}
+                            >
                                 {elem.title}
                             </span>
                         </div>

@@ -11,8 +11,8 @@ export const menu: IMenuData[] = [
         icon: AiFillHome,
     },
     {
-        link: "/events",
-        title: "Мероприятия",
+        link: "/mapEvents",
+        title: "Искать на карте",
         icon: SiEventbrite,
     },
     {
