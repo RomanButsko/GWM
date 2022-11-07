@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { AiFillDelete } from "react-icons/ai";
 import { TiEdit } from "react-icons/ti";
 import { MdOutlineClose } from "react-icons/md";
@@ -35,7 +35,7 @@ const ChatScreen = () => {
             chatActions.update({ id: editingMessageId, content });
             setEditingState(false);
         } else {
-            chatActions.send({ id: data?.id, content });
+            data && chatActions.send({ id: data.id, content });
         }
         setContent("");
     };
@@ -43,6 +43,10 @@ const ChatScreen = () => {
     const removeMessage = (id: number) => {
         chatActions.remove({ id });
     };
+
+    useEffect(() => {
+        if (!log) return;
+    }, [log]);
 
     return (
         <>

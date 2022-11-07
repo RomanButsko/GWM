@@ -72,7 +72,8 @@ const HomePosts: FC<IPost> = ({
                         <span>
                             Место проведения
                             <span className={"ymaps-geolink"}>
-                                {location.split(",").slice(1).join()}
+                                {location &&
+                                    location.split(",").slice(1).join()}
                             </span>
                         </span>
                         <span className={style.block_body__views}>

@@ -1,27 +1,24 @@
-import { io, Socket } from "socket.io-client";
+import { io } from "socket.io-client";
 import { IChat } from "./../types/chat.types";
 import { ApiURL } from "./../api/axios";
 import { api } from "./../store/api/api";
-import React, { useCallback, useEffect, useMemo, useState } from "react";
-
-let socket: Socket;
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 const useChat = () => {
     const { data } = api.useGetProfileQuery();
 
-    if (!socket && data) {
-        socket = io(`${ApiURL}chat`, {
-            query: {
-                name: data.name,
-            },
-        });
-    }
+    const socket = io(`${ApiURL}chat`, {
+        query: {
+            name: data?.id,
+        },
+    });
 
     const [messages, setMessages] = useState<IChat[]>();
     const [log, setLog] = useState<string>();
 
     useEffect(() => {
         socket.on("log", (log: string) => {
+            console.log(log);
             setLog(log);
         });
 
