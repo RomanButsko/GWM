@@ -3,9 +3,11 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FC, useState } from "react";
 import { GrFormView } from "react-icons/gr";
+import PostChat from "../../components/PostChat/PostChattwo";
 import { api } from "../../store/api/api";
 import { IPost } from "../../types/post.type";
 import { Button } from "../button/Button";
+import AnimationModal from "../modal/AnimationModal";
 import UserAvatar from "../user-avatar/general/UserAvatar";
 import ActiveUser from "./activeUser/ActiveUser";
 import JoinedUser from "./activeUser/JoinedUser";
@@ -25,7 +27,10 @@ const HomePosts: FC<IPost> = ({
     const [activePost, setActivePost] = useState<
         "reject" | "join" | "mypost"
     >();
+    const [show, setIsShow] = useState<boolean>(false);
     const [joinedUser, setJoinedUser] = useState<number>(0);
+
+    const [chat, setChat] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -58,6 +63,27 @@ const HomePosts: FC<IPost> = ({
         leaveEvent({ id: String(id) });
     };
 
+    const handleChat = () => {
+        setChat(true);
+        setIsShow(true);
+    };
+
+    const closeChat = () => {
+        setIsShow(false);
+        setChat(false);
+    };
+
+    if (chat && data && data.id) {
+        return (
+            <AnimationModal
+                opened={show}
+                onClose={closeChat}
+                windowView={"chat"}
+            >
+                <PostChat postId={id} title={title} userId={data.id} />
+            </AnimationModal>
+        );
+    }
     return (
         <div className={style.block}>
             {id && (
@@ -85,6 +111,7 @@ const HomePosts: FC<IPost> = ({
                             Узнать больше...
                         </a>
                     </Link>
+                    <button onClick={handleChat}>Перейти в чат</button>
                     <div className={style.block_footer}>
                         <>
                             {userId && (

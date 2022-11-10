@@ -1,48 +1,55 @@
 import { io } from "socket.io-client";
-import { IChat } from "./../types/chat.types";
-import { ApiURL } from "./../api/axios";
-import { api } from "./../store/api/api";
+import { IMessage, SendMessage, UpdateMessage } from "./../types/chat.types";
+
 import { useCallback, useEffect, useMemo, useState } from "react";
 
-const useChat = () => {
-    const { data } = api.useGetProfileQuery();
-
-    const socket = io(`${ApiURL}chat`, {
+const useChat = (postId: number, userId: number) => {
+    const socket = io(`http://localhost:80/chat`, {
         query: {
-            name: data?.id,
+            postId,
         },
     });
 
-    const [messages, setMessages] = useState<IChat[]>();
+    const [chatMessages, setChatMessages] = useState<IMessage[]>();
     const [log, setLog] = useState<string>();
 
     useEffect(() => {
-        socket.on("log", (log: string) => {
-            console.log(log);
-            setLog(log);
+        socket.emit("messages:get", postId, (response: any) => {
+            setChatMessages(response);
         });
+        return () => {
+            socket.close();
+        };
+    }, [log, postId, userId]);
 
-        socket.on("messages", (messages: IChat[]) => {
-            setMessages(messages);
-        });
-
-        socket.emit("messages:get");
+    const connectChat = useCallback(() => {
+        socket.emit("user:add", { chatId: postId, userId: userId });
     }, []);
 
-    const send = useCallback((payload: IChat) => {
+    const leaveChat = useCallback(() => {
+        socket.emit("user:leave", { chatId: postId, userId: userId });
+    }, []);
+
+    const send = useCallback((payload: SendMessage) => {
         socket.emit("message:post", payload);
+        setLog(`message was sent ${payload.text}`);
     }, []);
 
-    const remove = useCallback((payload: { id: number }) => {
-        socket.emit("message:delete", payload);
-    }, []);
+    const remove = useCallback(
+        (payload: { messageId: number; userId: number }) => {
+            socket.emit("message:delete", payload.messageId, payload.userId);
+        },
+        []
+    );
 
-    const update = useCallback((payload: IChat) => {
-        socket.emit("message:put", payload);
+    const update = useCallback((payload: UpdateMessage) => {
+        socket.emit("message:patch", payload);
     }, []);
 
     const chatActions = useMemo(
         () => ({
+            connectChat,
+            leaveChat,
             send,
             update,
             remove,
@@ -50,7 +57,7 @@ const useChat = () => {
         []
     );
 
-    return { messages, log, chatActions };
+    return { chatMessages, setLog, chatActions };
 };
 
 export default useChat;

@@ -1,13 +1,8 @@
 import React from "react";
-import ChatScreen from "../../chatScreen/ChatScreen";
 import { Layout } from "../../layout/Layout";
 
 const ChatPage = () => {
-    return (
-        <Layout title={"Чат"}>
-            <ChatScreen />
-        </Layout>
-    );
+    return <Layout title={"Чат"}></Layout>;
 };
 
 export default ChatPage;
