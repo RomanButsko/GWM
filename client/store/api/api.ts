@@ -64,6 +64,13 @@ export const api = createApi({
         getAllPointers: builder.query<IPointers, void>({
             query: () => "posts/location",
         }),
+        findChatUser: builder.mutation<number, number>({
+            query: (id: number) => ({
+                url: `chat/findUser`,
+                method: "POST",
+                body: id,
+            }),
+        }),
         findActiveUserForPost: builder.query<IActiveUser & IPost, string>({
             query: (id: string) => `user/baseDataUser/${id}`,
         }),

@@ -5,6 +5,7 @@ import logo from "./../../../asset/logo.png";
 import style from "./Header.module.sass";
 import { useRouter } from "next/router";
 import Search from "./Search/Search";
+import { myLoader } from "../../../loader/Image-loader";
 
 const Header = () => {
     const router = useRouter();

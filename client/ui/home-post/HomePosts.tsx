@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FC, useState } from "react";
 import { GrFormView } from "react-icons/gr";
-import PostChat from "../../components/PostChat/PostChattwo";
+import PostChat from "../../components/PostChat/PostChat";
 import { api } from "../../store/api/api";
 import { IPost } from "../../types/post.type";
 import { Button } from "../button/Button";

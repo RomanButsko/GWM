@@ -1,49 +1,60 @@
-import { io } from "socket.io-client";
+import io, { Socket } from "socket.io-client";
 import { IMessage, SendMessage, UpdateMessage } from "./../types/chat.types";
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 
 const useChat = (postId: number, userId: number) => {
-    const socket = io(`http://localhost:80/chat`, {
-        query: {
-            postId,
-        },
-    });
+    const [socket] = useState<Socket>(
+        io(`http://localhost:80/chat`, {
+            query: {
+                postId,
+            },
+        })
+    );
 
-    const [chatMessages, setChatMessages] = useState<IMessage[]>();
-    const [log, setLog] = useState<string>();
+    const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
+    const [log, setLog] = useState<number>(0);
+
+    const messageListener = (message: IMessage) => {
+        setChatMessages([...chatMessages, message]);
+    };
 
     useEffect(() => {
-        socket.emit("messages:get", postId, (response: any) => {
-            setChatMessages(response);
+        socket?.emit("messages:get", postId, messageListener);
+
+        socket?.on("messages:get", (chatMessages) => {
+            setChatMessages(chatMessages);
         });
+
         return () => {
-            socket.close();
+            socket?.disconnect();
         };
-    }, [log, postId, userId]);
-
-    const connectChat = useCallback(() => {
-        socket.emit("user:add", { chatId: postId, userId: userId });
     }, []);
 
-    const leaveChat = useCallback(() => {
-        socket.emit("user:leave", { chatId: postId, userId: userId });
-    }, []);
+    const connectChat = (chatId: number, userId: number) => {
+        if (!socket) console.log("неравен");
+        console.log(userId);
+        console.log(postId);
+        socket?.emit("user:connected", { chatId, userId });
+    };
 
-    const send = useCallback((payload: SendMessage) => {
-        socket.emit("message:post", payload);
-        setLog(`message was sent ${payload.text}`);
-    }, []);
+    const leaveChat = (postId: number, userId: number) => {
+        socket?.emit("user:leave", { chatId: postId, userId });
+    };
+
+    const send = (payload: SendMessage) => {
+        socket?.emit("message:post", payload);
+    };
 
     const remove = useCallback(
         (payload: { messageId: number; userId: number }) => {
-            socket.emit("message:delete", payload.messageId, payload.userId);
+            socket?.emit("message:delete", payload.messageId, payload.userId);
         },
         []
     );
 
     const update = useCallback((payload: UpdateMessage) => {
-        socket.emit("message:patch", payload);
+        socket?.emit("message:patch", payload);
     }, []);
 
     const chatActions = useMemo(
@@ -57,7 +68,7 @@ const useChat = (postId: number, userId: number) => {
         []
     );
 
-    return { chatMessages, setLog, chatActions };
+    return { send, leaveChat, connectChat, chatMessages, setLog, chatActions };
 };
 
 export default useChat;

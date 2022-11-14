@@ -11,6 +11,7 @@ import style from "./RightHeader.module.sass";
 import { IoMdAdd } from "react-icons/io";
 import { GiReturnArrow } from "react-icons/gi";
 import AnimationModal from "../../../../ui/modal/AnimationModal";
+import userSvg from "./../../../../asset/user-svg.svg";
 
 const RightHeader = () => {
     const [profileMenu, setProfileMenu] = useState(false);
@@ -33,7 +34,7 @@ const RightHeader = () => {
                             <div className={style.newId} onClick={handleClick}>
                                 <Image
                                     loader={myLoader}
-                                    src={user.avatarPath}
+                                    src={user.avatarPath || userSvg}
                                     width={50}
                                     height={50}
                                     className={style.profile_avatar}
