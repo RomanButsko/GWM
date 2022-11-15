@@ -12,6 +12,7 @@ const useChat = (postId: number, userId: number) => {
         })
     );
 
+    console.log(socket);
     const [chatMessages, setChatMessages] = useState<IMessage[]>([]);
     const [log, setLog] = useState<number>(0);
 

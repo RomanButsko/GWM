@@ -10,7 +10,7 @@ import Head from "next/head";
 import "../styles/calendarStyle.sass";
 import "../styles/map.sass";
 import { YMaps } from "@pbe/react-yandex-maps";
-import Script from "next/script";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 
 type TypeAppProps = AppProps & TypeComponentAuthFields;
 
@@ -28,7 +28,9 @@ function MyApp({ Component, pageProps }: TypeAppProps) {
                             apikey: "1c3e1a0b-c5d3-4286-89a6-4878fd37de76",
                         }}
                     >
-                        <Component {...pageProps} />;
+                        <GoogleOAuthProvider clientId="424228442439-sqtnn8t7dgf28u11pk43417q4mi5i7tv.apps.googleusercontent.com">
+                            <Component {...pageProps} />
+                        </GoogleOAuthProvider>
                         {/* <ReduxToastr
                     timeOut={4000}
                     newestOnTop={false}

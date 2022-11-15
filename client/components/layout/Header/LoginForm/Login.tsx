@@ -10,6 +10,7 @@ import useAuth from "../../../../hooks/useAuth";
 import { IProfileMenu } from "../ProfileMenu/profileMenu.interface";
 import { FC } from "react";
 import Router from "next/router";
+import GoogleLog from "./Google/GoogleLogin";
 
 const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
     const {
@@ -40,6 +41,7 @@ const LoginForm: FC<IProfileMenu> = ({ setMenu, profileMenu }) => {
 
     return (
         <div className={style.login_block}>
+            <GoogleLog />
             <form onSubmit={handleSubmit(onSubmit)} className={style.form}>
                 <AuthNameField
                     name={"Email"}

@@ -5,7 +5,6 @@ import { myLoader } from "../../../loader/Image-loader";
 import UserPageAvatar from "../../../ui/user-avatar/profile/UserPageAvatar";
 import style from "./ProfileUser.module.sass";
 import UserPosts from "../../Posts/userPosts/UserProfilePosts";
-import YandexMap from "../../../ui/map/Map";
 
 const MyProfile = () => {
     const { data } = api.useGetProfileQuery();

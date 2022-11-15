@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { ChangeEvent } from "react";
 import { useState } from "react";
 import { FC } from "react";
@@ -9,14 +9,13 @@ import { api } from "./../../store/api/api";
 import UserChat from "./../UserChat/UserChat";
 
 const PostChat: FC<IPostChat> = ({ postId, userId, title }) => {
-    const { data } = api.useGetProfileQuery();
-
     const [message, setMessage] = useState<string>("");
     const [userStatus, setUserStatus] = useState<boolean>(false);
+    const messagesEndRef = useRef<HTMLDivElement>(null);
+
     const { chatMessages, setLog, chatActions, connectChat, leaveChat, send } =
         useChat(postId, userId);
 
-    console.log(chatMessages);
     const sendMessage = () => {
         send({
             text: message,
@@ -25,6 +24,10 @@ const PostChat: FC<IPostChat> = ({ postId, userId, title }) => {
             userIdFrom: userId,
         });
         setMessage("");
+        messagesEndRef.current?.scrollIntoView({
+            behavior: "smooth",
+            block: "end",
+        });
     };
 
     const connectPostChat = () => {
@@ -37,24 +40,28 @@ const PostChat: FC<IPostChat> = ({ postId, userId, title }) => {
         leaveChat(postId, userId);
     };
 
+    console.log(chatMessages);
+
     return (
         <>
             <div className={style.chat}>
                 <div className={style.chat_header}>
                     <header>{title}</header>
                 </div>
-                <menu>
-                    {chatMessages.length >= 1 &&
-                        chatMessages.map((message) => (
-                            <div>
-                                <UserChat message={message} />
-                            </div>
-                        ))}
+                <menu className={style.chat_menu}>
+                    {chatMessages.map((message) => (
+                        <div>
+                            <UserChat {...message} />
+                        </div>
+                    ))}
                 </menu>
                 <div className={style.chat_footer}>
                     {userStatus ? (
                         <>
-                            <button onClick={leavePostChat}>
+                            <button
+                                onClick={leavePostChat}
+                                className={style.leave}
+                            >
                                 Покинуть чат
                             </button>
                             <input
@@ -65,8 +72,14 @@ const PostChat: FC<IPostChat> = ({ postId, userId, title }) => {
                                 ) => {
                                     setMessage(e.target.value);
                                 }}
+                                className={style.chat_footer__input}
+                                placeholder="Сообщение"
                             />
-                            <button onClick={sendMessage} disabled={!message}>
+                            <button
+                                onClick={sendMessage}
+                                disabled={!message}
+                                className={style.chat_footer__btn}
+                            >
                                 Отправить
                             </button>
                         </>

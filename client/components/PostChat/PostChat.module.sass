@@ -1,3 +1,25 @@
 .chat
     display: flex
     flex-direction: column
+    position: relative
+    &_menu
+        height: 50vh
+    &_footer
+        width: 100%
+        height: 17vh
+        position: fixed
+        bottom: 0
+
+        &__input
+            width: 50vw
+            height: 5vh
+            outline: none
+            padding: 10px
+            border-radius: 8px
+            border: none
+        &__btn
+            height: 5vh
+.leave
+    position: absolute
+    top: 0px
+    right: 50%
