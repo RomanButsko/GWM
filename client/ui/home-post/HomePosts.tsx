@@ -22,24 +22,23 @@ const HomePosts: FC<IPost> = ({
     id,
     views,
     userId,
-    joinUser,
 }) => {
     const [activePost, setActivePost] = useState<
         "reject" | "join" | "mypost"
     >();
-    const [show, setIsShow] = useState<boolean>(false);
-    const [joinedUser, setJoinedUser] = useState<number>(0);
 
-    const [chat, setChat] = useState<boolean>(false);
+    const [joinedUser, setJoinedUser] = useState<number>(0);
 
     const router = useRouter();
 
     const { data } = api.useGetProfileQuery();
+    const { data: postUsers } = api.useFindJoinedUserPostQuery(String(id));
     const [joinToEvent] = api.useJoinToEventMutation();
     const [leaveEvent] = api.useLeaveEventMutation();
 
     useEffect(() => {
         if (userId !== data?.id) {
+            console.log("первое");
             data?.joinPost?.find((idPost) => idPost === id)
                 ? setActivePost("join")
                 : setActivePost("reject");
@@ -49,41 +48,22 @@ const HomePosts: FC<IPost> = ({
     }, [data]);
 
     useEffect(() => {
-        if (!joinUser) setJoinedUser(0);
+        if (!postUsers?.joinUser) setJoinedUser(0);
         else {
-            setJoinedUser(joinUser?.length);
+            setJoinedUser(postUsers?.joinUser?.length);
         }
-    }, [joinUser]);
+    }, [postUsers?.joinUser?.length]);
 
     const handlJoinToEvent = () => {
         joinToEvent({ id: String(id) });
+        setActivePost("join");
     };
 
     const handleLeave = () => {
         leaveEvent({ id: String(id) });
+        setActivePost("reject");
     };
 
-    const handleChat = () => {
-        setChat(true);
-        setIsShow(true);
-    };
-
-    const closeChat = () => {
-        setIsShow(false);
-        setChat(false);
-    };
-
-    if (chat && data && data.id) {
-        return (
-            <AnimationModal
-                opened={show}
-                onClose={closeChat}
-                windowView={"chat"}
-            >
-                <PostChat postId={id} title={title} userId={data.id} />
-            </AnimationModal>
-        );
-    }
     return (
         <div className={style.block}>
             {id && (
@@ -111,7 +91,6 @@ const HomePosts: FC<IPost> = ({
                             Узнать больше...
                         </a>
                     </Link>
-                    <button onClick={handleChat}>Перейти в чат</button>
                     <div className={style.block_footer}>
                         <>
                             {userId && (
@@ -123,21 +102,25 @@ const HomePosts: FC<IPost> = ({
                                 </div>
                             )}
                             <div className={style.block_footer__userAvatar}>
-                                {joinUser && (
+                                {postUsers?.joinUser && (
                                     <div>
-                                        {joinUser.map((userId, index) => {
-                                            if (index < 3) {
-                                                return (
-                                                    <ActiveUser
-                                                        userId={userId}
-                                                    />
-                                                );
-                                            } else {
-                                                return (
-                                                    <button>и другие</button>
-                                                );
+                                        {postUsers.joinUser.map(
+                                            (userId, index) => {
+                                                if (index < 3) {
+                                                    return (
+                                                        <ActiveUser
+                                                            userId={userId}
+                                                        />
+                                                    );
+                                                } else {
+                                                    return (
+                                                        <button>
+                                                            и другие
+                                                        </button>
+                                                    );
+                                                }
                                             }
-                                        })}
+                                        )}
                                     </div>
                                 )}
                                 {<JoinedUser joinedUser={joinedUser} />}

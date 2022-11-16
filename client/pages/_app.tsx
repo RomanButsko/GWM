@@ -28,9 +28,7 @@ function MyApp({ Component, pageProps }: TypeAppProps) {
                             apikey: "1c3e1a0b-c5d3-4286-89a6-4878fd37de76",
                         }}
                     >
-                        <GoogleOAuthProvider clientId="424228442439-sqtnn8t7dgf28u11pk43417q4mi5i7tv.apps.googleusercontent.com">
-                            <Component {...pageProps} />
-                        </GoogleOAuthProvider>
+                        <Component {...pageProps} />
                         {/* <ReduxToastr
                     timeOut={4000}
                     newestOnTop={false}

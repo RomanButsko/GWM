@@ -1,4 +1,4 @@
-import { IPost, IPostReq } from "./../../types/post.type";
+import { IPost, IPostJoinUser, IPostReq } from "./../../types/post.type";
 import { ApiURL } from "./../../api/axios";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { IActiveUser, IChangeAvatar, IUser } from "../../types/user.types";
@@ -74,6 +74,18 @@ export const api = createApi({
         findActiveUserForPost: builder.query<IActiveUser & IPost, string>({
             query: (id: string) => `user/baseDataUser/${id}`,
         }),
+        findJoinedUserPost: builder.query<IPostJoinUser, string>({
+            query: (id: string) => `posts/findByJoinedUser/${id}`,
+            providesTags: (result) =>
+                result && result.joinUser?.length
+                    ? [
+                          ...result.joinUser.map(() => ({
+                              type: "ActiveUser" as const,
+                          })),
+                          { type: "ActiveUser", id: "LIST" },
+                      ]
+                    : [{ type: "ActiveUser", id: "LIST" }],
+        }),
         createPost: builder.mutation<IPost, Partial<IPostReq>>({
             query: (body) => ({
                 url: `posts/create`,
@@ -98,14 +110,14 @@ export const api = createApi({
                 url: `posts/join/${id}`,
                 method: "POST",
             }),
-            invalidatesTags: [{ type: "User", id: "LIST" }],
+            invalidatesTags: [{ type: "ActiveUser", id: "LIST" }],
         }),
         leaveEvent: builder.mutation<IUser & IPost, { id: string }>({
             query: ({ id }) => ({
                 url: `posts/leaveEvent/${id}`,
                 method: "POST",
             }),
-            invalidatesTags: [{ type: "User", id: "LIST" }],
+            invalidatesTags: [{ type: "ActiveUser", id: "LIST" }],
         }),
     }),
 });

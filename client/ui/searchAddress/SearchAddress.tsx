@@ -6,12 +6,16 @@ import "react-dadata/dist/react-dadata.css";
 import { FC } from "react";
 import { values } from "lodash";
 import { Field } from "../field/Fields";
+import { Dispatch } from "react";
+import { SetStateAction } from "react";
+import { IMapPointer } from "../../components/CreatePost/createPost.interface";
 
 interface ISearchAdress {
-    onChange: (address: string) => void;
+    onChange?: (address: string) => void;
+    setMapPointer: Dispatch<SetStateAction<IMapPointer>>;
 }
 
-const SearchAdress: FC<ISearchAdress> = ({ onChange }) => {
+const SearchAdress: FC<ISearchAdress> = ({ onChange, setMapPointer }) => {
     const [place, setPlace] = useState<
         DaDataSuggestion<DaDataAddress> | undefined
     >();
@@ -19,9 +23,10 @@ const SearchAdress: FC<ISearchAdress> = ({ onChange }) => {
     const handlePlace = (
         value: DaDataSuggestion<DaDataAddress> | undefined
     ) => {
-        if (value) {
+        if (value && onChange) {
             onChange(value.value);
             setPlace(value);
+            setMapPointer([+value.data.geo_lat, +value.data.geo_lon]);
         }
     };
     return (

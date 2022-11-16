@@ -10,7 +10,7 @@ import AuthNameField from "../../ui/field/AuthNameField";
 import { Field } from "../../ui/field/Fields";
 import TextArea from "../../ui/text-area/TextArea";
 import UploadField from "../../ui/upload-field/UploadField";
-import { ICreatePost } from "./createPost.interface";
+import { ICreatePost, IMapPointer } from "./createPost.interface";
 import style from "./CreatePost.module.sass";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
@@ -22,6 +22,9 @@ import SearchAdress from "../../ui/searchAddress/SearchAddress";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
+    const [mapPointer, setMapPointer] = useState<IMapPointer>(
+        [] as IMapPointer
+    );
     const { ref, isShow, setIsShow: setIsShowMap } = useOutside(false);
 
     const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
@@ -151,6 +154,7 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                         onChange={(address: string) =>
                                             onChange(address)
                                         }
+                                        setMapPointer={setMapPointer}
                                     />
                                 )}
                             />
@@ -162,7 +166,8 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                         {isShow && (
                             <div ref={ref}>
                                 <YandexMap
-                                    post={true}
+                                    clusterPoints={mapPointer}
+                                    post={"create"}
                                     setMap={setIsShowMap}
                                     showMap={isShow}
                                     width={"66vw"}

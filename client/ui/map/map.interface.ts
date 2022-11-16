@@ -1,7 +1,10 @@
+import { SetStateAction } from "react";
+import { Dispatch } from "react";
+
 export interface IYandexMap {
     clusterPoints?: any;
-    post: boolean;
-    setMap?: (arg0: boolean) => void;
+    post: string;
+    setMap?: Dispatch<SetStateAction<boolean>>;
     showMap?: boolean;
     width: string;
     height: string;

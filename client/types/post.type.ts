@@ -16,3 +16,7 @@ export interface IPostReq {
 export interface IPostIdProps {
     post: IPost;
 }
+
+export interface IPostJoinUser {
+    joinUser: number[] | null;
+}

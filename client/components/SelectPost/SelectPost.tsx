@@ -1,13 +1,15 @@
 import Image from "next/image";
 import { useRouter } from "next/router";
-import React from "react";
+import React, { useState } from "react";
 import { FC } from "react";
 import { AiFillEye } from "react-icons/ai";
 import { myLoader } from "../../loader/Image-loader";
 import { api } from "../../store/api/api";
 import { IPost } from "../../types/post.type";
 import YandexMap from "../../ui/map/Map";
+import AnimationModal from "../../ui/modal/AnimationModal";
 import UserAvatar from "../../ui/user-avatar/general/UserAvatar";
+import PostChat from "../PostChat/PostChat";
 import style from "./SelectPost.module.sass";
 
 const SelectPost: FC<IPost> = ({
@@ -20,8 +22,32 @@ const SelectPost: FC<IPost> = ({
     location,
     id,
 }) => {
-    const { data } = api.useGetExactPointerQuery(id);
+    const { data: user } = api.useGetProfileQuery();
+    const { data: pointers } = api.useGetExactPointerQuery(id);
+    console.log(pointers);
+    const [chat, setChat] = useState<boolean>(false);
+    const [show, setIsShow] = useState<boolean>(false);
+    const handleChat = () => {
+        setChat(true);
+        setIsShow(true);
+    };
 
+    const closeChat = () => {
+        setIsShow(false);
+        setChat(false);
+    };
+
+    if (chat && user && user.id) {
+        return (
+            <AnimationModal
+                opened={show}
+                onClose={closeChat}
+                windowView={"chat"}
+            >
+                <PostChat postId={id} title={title} userId={user.id} />
+            </AnimationModal>
+        );
+    }
     const router = useRouter();
     return (
         <div className={style.post}>
@@ -48,11 +74,12 @@ const SelectPost: FC<IPost> = ({
                 />
             )}
             <div>{<UserAvatar id={userId} />}</div>
+            <button onClick={handleChat}>Перейти в чат</button>
             <YandexMap
-                post={false}
+                post={"post"}
                 width={"900px"}
                 height={"400px"}
-                clusterPoints={data}
+                clusterPoints={pointers}
             />
         </div>
     );

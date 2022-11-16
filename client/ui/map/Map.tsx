@@ -13,6 +13,7 @@ import { FC } from "react";
 import { IYandexMap } from "./map.interface";
 import style from "./Map.module.sass";
 import cn from "classnames";
+import { useState } from "react";
 
 const YandexMap: FC<IYandexMap> = ({
     clusterPoints,
@@ -26,10 +27,15 @@ const YandexMap: FC<IYandexMap> = ({
         <>
             <div
                 className={cn(style.map, {
-                    [style.map_active]: !!post,
+                    [style.map_active__create]: post === "create",
+                    [style.map_active__post]: post === "post",
                 })}
             >
-                <div className={style.map_block}>
+                <div
+                    className={cn(style.map_block, {
+                        [style.map_active__post]: post === "post",
+                    })}
+                >
                     <Map
                         defaultState={{
                             center: [53.90136779994891, 27.516049072335527],
@@ -46,10 +52,33 @@ const YandexMap: FC<IYandexMap> = ({
                                 groupByCoordinates: false,
                             }}
                         >
-                            {clusterPoints?.map((coordinates, index) => (
-                                <Placemark key={index} geometry={coordinates} />
-                            ))}
+                            {!!clusterPoints &&
+                            !!clusterPoints.length &&
+                            clusterPoints[0].length ? (
+                                clusterPoints?.map(
+                                    (coordinates: number[], index: number) => (
+                                        <Placemark
+                                            key={index}
+                                            geometry={coordinates}
+                                            options={{ draggable: true }}
+                                        />
+                                    )
+                                )
+                            ) : (
+                                <Placemark
+                                    geometry={
+                                        (!!clusterPoints &&
+                                            clusterPoints.length &&
+                                            clusterPoints) || [
+                                            53.90136779994891,
+                                            27.516049072335527,
+                                        ]
+                                    }
+                                    options={{ draggable: true }}
+                                />
+                            )}
                         </Clusterer>
+
                         <FullscreenControl />
                         <GeolocationControl options={{ float: "left" }} />
                         <SearchControl
@@ -60,12 +89,14 @@ const YandexMap: FC<IYandexMap> = ({
                         />
                         <ZoomControl options={{ float: "right" }} />
                     </Map>
-                    <button
-                        className={style.map_closeBtn}
-                        onClick={() => setMap(!showMap)}
-                    >
-                        Закрыть
-                    </button>
+                    {showMap && setMap && (
+                        <button
+                            className={style.map_closeBtn}
+                            onClick={() => setMap(!showMap)}
+                        >
+                            Закрыть
+                        </button>
+                    )}
                 </div>
             </div>
         </>
