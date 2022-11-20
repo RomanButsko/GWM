@@ -4,7 +4,7 @@ export interface IUploadField {
     folder?: string;
     id: number;
     showBottomPhoto: boolean;
-    typeField: string;
+    typeField?: string;
 }
 
 export interface IStateType {

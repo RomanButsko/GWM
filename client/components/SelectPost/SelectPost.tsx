@@ -37,6 +37,11 @@ const SelectPost: FC<IPost> = ({
         setChat(false);
     };
 
+    const dataPointer = {
+        title,
+        description,
+    };
+
     if (chat && user && user.id) {
         return (
             <AnimationModal
@@ -80,6 +85,7 @@ const SelectPost: FC<IPost> = ({
                 width={"900px"}
                 height={"400px"}
                 clusterPoints={pointers}
+                data={dataPointer}
             />
         </div>
     );

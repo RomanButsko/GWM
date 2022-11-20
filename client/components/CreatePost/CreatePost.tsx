@@ -15,16 +15,20 @@ import style from "./CreatePost.module.sass";
 import { FaMapMarkedAlt } from "react-icons/fa";
 import { BsCalendarDate } from "react-icons/bs";
 import Caledar from "../../ui/calendar/event/Caledar";
-import Router from "next/router";
 import YandexMap from "../../ui/map/Map";
 import { useOutside } from "../../hooks/useOutside";
 import SearchAdress from "../../ui/searchAddress/SearchAddress";
+import SelectBkg from "./SelectBkg/SelectBkg";
+import { useDispatch } from "react-redux";
+import { clearBckg } from "../../store/postAvatar/postAvatarSlice";
 
 const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     const [modalCreate, setModalCreate] = useState<boolean>(true);
     const [mapPointer, setMapPointer] = useState<IMapPointer>(
         [] as IMapPointer
     );
+
+    const dispatch = useDispatch();
     const { ref, isShow, setIsShow: setIsShowMap } = useOutside(false);
 
     const [userPostCreate, { isLoading }] = api.useCreatePostMutation();
@@ -45,9 +49,11 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
     }, [formState, reset]);
 
     const onSubmit: SubmitHandler<IPostReq> = async (data) => {
+        console.log(data);
         setIsShow(false);
         await userPostCreate(data).unwrap();
-        Router.reload();
+        dispatch(clearBckg);
+        // Router.reload();
     };
     return (
         <>
@@ -175,6 +181,19 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
                                 />
                             </div>
                         )}
+                        <div>
+                            <Controller
+                                control={control}
+                                name="bckgPicture"
+                                render={({ field: { onChange } }) => (
+                                    <SelectBkg
+                                        selectedPhoto={(bkg: string) =>
+                                            onChange(bkg)
+                                        }
+                                    />
+                                )}
+                            />
+                        </div>
                         <div className={style.block_sendForm}>
                             <Button
                                 type="submit"

@@ -8,4 +8,10 @@ export interface IYandexMap {
     showMap?: boolean;
     width: string;
     height: string;
+    data?: IPostData;
+}
+
+interface IPostData {
+    title: string;
+    description: string;
 }

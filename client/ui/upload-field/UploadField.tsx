@@ -16,7 +16,6 @@ const UploadField: FC<IUploadField> = ({
     typeField,
 }) => {
     const [files, setFiles] = useState<IStateType[]>([]);
-
     const { uploadFile } = useUploadField(onChange, id, folder);
 
     const { getRootProps, getInputProps } = useDropzone({
@@ -61,9 +60,11 @@ const UploadField: FC<IUploadField> = ({
                 className={cn(styles.container_window, {
                     [styles.container_window__userPage]: typeField === "page",
                 })}
-                onChange={uploadFile}
             >
-                <input {...getInputProps()} />
+                <input
+                    onChange={(event) => uploadFile(event)}
+                    {...getInputProps()}
+                />
                 <p>{title}</p>
             </div>
             {showBottomPhoto && (

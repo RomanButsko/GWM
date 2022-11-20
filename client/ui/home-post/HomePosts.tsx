@@ -22,6 +22,7 @@ const HomePosts: FC<IPost> = ({
     id,
     views,
     userId,
+    bckgPicture,
 }) => {
     const [activePost, setActivePost] = useState<
         "reject" | "join" | "mypost"
@@ -83,7 +84,8 @@ const HomePosts: FC<IPost> = ({
                             </span>
                         </span>
                         <span className={style.block_body__views}>
-                            <GrFormView fontSize={22} /> {views || 0}
+                            <GrFormView color="white" fontSize={22} />{" "}
+                            {views || 0}
                         </span>
                     </div>
                     <Link href={`posts/${id}`}>

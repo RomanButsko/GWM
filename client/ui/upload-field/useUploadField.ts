@@ -8,6 +8,7 @@ export const useUploadField = (
     id: number,
     folder?: string
 ) => {
+    console.log("hook", id, folder);
     const dataMutate = async (data: FormData) => {
         return await MediaService.upload(data, id, folder)
             .then(({ data }) => onChange(data))
@@ -16,13 +17,13 @@ export const useUploadField = (
 
     const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
         const files = e.target.files;
+        console.log("files", files);
         if (!files?.length) return;
 
         // setIsChosen && setIsChosen(true);
 
         const formData = new FormData();
         formData.append("media", files[0]);
-        console.log(formData.get("media"));
         return await dataMutate(formData);
     };
 

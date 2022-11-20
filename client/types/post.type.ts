@@ -11,6 +11,7 @@ export interface IPostReq {
     date: Date;
     picture: string;
     location: string;
+    bckgPicture: string;
 }
 
 export interface IPostIdProps {

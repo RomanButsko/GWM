@@ -64,6 +64,10 @@ export const api = createApi({
         getAllPointers: builder.query<IPointers, void>({
             query: () => "posts/location",
         }),
+
+        getExampleBackgroung: builder.query<any, void>({
+            query: () => "posts/chooseBg",
+        }),
         findChatUser: builder.mutation<number, number>({
             query: (id: number) => ({
                 url: `chat/findUser`,

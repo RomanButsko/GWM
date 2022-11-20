@@ -4,10 +4,11 @@ import YandexMap from "../../ui/map/Map";
 
 const MapEvents = () => {
     const { data } = api.useGetAllPointersQuery();
+    console.log(data);
     return (
         <div>
             <YandexMap
-                post={false}
+                post={""}
                 width={"900px"}
                 height={"400px"}
                 clusterPoints={data}

@@ -22,6 +22,7 @@ const YandexMap: FC<IYandexMap> = ({
     showMap,
     width,
     height,
+    data,
 }) => {
     return (
         <>
@@ -50,6 +51,7 @@ const YandexMap: FC<IYandexMap> = ({
                             options={{
                                 preset: "islands#greenDotIcon",
                                 groupByCoordinates: false,
+                                clusterIconLayout: "default#pieChart",
                             }}
                         >
                             {!!clusterPoints &&
@@ -60,7 +62,7 @@ const YandexMap: FC<IYandexMap> = ({
                                         <Placemark
                                             key={index}
                                             geometry={coordinates}
-                                            options={{ draggable: true }}
+                                            options={{ draggable: false }}
                                         />
                                     )
                                 )
@@ -74,7 +76,14 @@ const YandexMap: FC<IYandexMap> = ({
                                             27.516049072335527,
                                         ]
                                     }
-                                    options={{ draggable: true }}
+                                    balloonContentHeader={data && data.title}
+                                    balloonContentBody={
+                                        data && data.description
+                                    }
+                                    options={{
+                                        draggable: true,
+                                        preset: "islands#violetCircleDotIcon",
+                                    }}
                                 />
                             )}
                         </Clusterer>
