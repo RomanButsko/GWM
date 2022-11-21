@@ -15,15 +15,11 @@ export const useUploadField = (
             .catch((error) => alert(errorCatch(error)));
     };
 
-    const uploadFile = async (e: ChangeEvent<HTMLInputElement>) => {
-        const files = e.target.files;
-        console.log("files", files);
-        if (!files?.length) return;
-
-        // setIsChosen && setIsChosen(true);
+    const uploadFile = async (file: any) => {
+        if (!file[0].path) return;
 
         const formData = new FormData();
-        formData.append("media", files[0]);
+        formData.append("media", file[0]);
         return await dataMutate(formData);
     };
 

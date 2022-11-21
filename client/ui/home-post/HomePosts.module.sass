@@ -5,20 +5,21 @@
     display: flex
     flex-direction: column 
     justify-content: space-between
+    color: #ffff
+    z-index: -1
     &_body
         display: flex
         flex-direction: column
         justify-content: space-between
         &__views
             display: flex
-            color: #ffff
             align-items: center
             margin-top: 8px
             font-size: 16px
         &__infBtn
             font-size: 14px
             text-decoration: none
-            color: black
+            color: #ffff
             &:hover
                 color: #AB82D4
 
@@ -26,11 +27,13 @@
         &__link
             color: #ffff
             font-weight: 700
-            font-size: 18px
+            font-size: 24px
             text-decoration: none
             &:hover
                 transition: 0.5s
                 color: #8E97B2
+        &__descr
+            font-size: 18px
     &_footer
         display: flex
         flex-direction: row

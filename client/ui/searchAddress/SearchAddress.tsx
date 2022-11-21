@@ -4,8 +4,6 @@ import { DaDataSuggestion, DaDataAddress } from "react-dadata";
 import style from "./SearchAdress.module.sass";
 import "react-dadata/dist/react-dadata.css";
 import { FC } from "react";
-import { values } from "lodash";
-import { Field } from "../field/Fields";
 import { Dispatch } from "react";
 import { SetStateAction } from "react";
 import { IMapPointer } from "../../components/CreatePost/createPost.interface";

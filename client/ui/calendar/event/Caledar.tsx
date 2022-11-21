@@ -10,7 +10,7 @@ const Caledar: FC<ICalendar> = ({ onChange, value }) => {
         <DatePicker
             selected={value}
             onChange={(date: Date) => onChange(date)}
-            placeholderText="Укажите дату мероприятия"
+            placeholderText="Укажите дату и время мероприятия"
             minDate={new Date()}
             showDisabledMonthNavigation
             showTimeInput

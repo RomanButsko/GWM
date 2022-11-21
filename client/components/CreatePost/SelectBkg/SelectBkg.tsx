@@ -15,8 +15,13 @@ const SelectBkg: FC<ISelectBkg> = ({ selectedPhoto }) => {
     }
     const [modal, setModal] = useState<boolean>(false);
     return (
-        <div>
-            <div onClick={() => setModal(!modal)}>Выберите задний фон</div>
+        <div className={style.seletbBkg}>
+            <div
+                onClick={() => setModal(!modal)}
+                className={style.seletbBkg_btn}
+            >
+                Выберите задний фон
+            </div>
             {path && <div>Выбрано {path}</div>}
             {modal && (
                 <AnimationModal

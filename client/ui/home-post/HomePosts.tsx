@@ -2,7 +2,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { FC, useState } from "react";
-import { GrFormView } from "react-icons/gr";
+import { GrView } from "react-icons/gr";
 import PostChat from "../../components/PostChat/PostChat";
 import { api } from "../../store/api/api";
 import { IPost } from "../../types/post.type";
@@ -73,7 +73,9 @@ const HomePosts: FC<IPost> = ({
                         <Link href={`posts/${id}`}>
                             <a className={style.block_title__link}>{title}</a>
                         </Link>
-                        <p>{description}</p>
+                        <p className={style.block_title__descr}>
+                            {description}
+                        </p>
                     </div>
                     <div className={style.block_body}>
                         <span>
@@ -84,7 +86,10 @@ const HomePosts: FC<IPost> = ({
                             </span>
                         </span>
                         <span className={style.block_body__views}>
-                            <GrFormView color="white" fontSize={22} />{" "}
+                            <GrView
+                                fontSize={24}
+                                style={{ backgroundColor: "white" }}
+                            />
                             {views || 0}
                         </span>
                     </div>

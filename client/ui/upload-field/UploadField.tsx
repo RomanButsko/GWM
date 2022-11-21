@@ -23,6 +23,7 @@ const UploadField: FC<IUploadField> = ({
             "image/*": [],
         },
         onDrop: (acceptedFiles) => {
+            uploadFile(acceptedFiles);
             setFiles(
                 acceptedFiles.map((file) =>
                     Object.assign(file, {
@@ -61,10 +62,7 @@ const UploadField: FC<IUploadField> = ({
                     [styles.container_window__userPage]: typeField === "page",
                 })}
             >
-                <input
-                    onChange={(event) => uploadFile(event)}
-                    {...getInputProps()}
-                />
+                <input {...getInputProps()} />
                 <p>{title}</p>
             </div>
             {showBottomPhoto && (

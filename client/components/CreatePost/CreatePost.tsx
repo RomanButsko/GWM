@@ -53,7 +53,7 @@ const CreatePost: FC<ICreatePost> = ({ setIsShow }) => {
         setIsShow(false);
         await userPostCreate(data).unwrap();
         dispatch(clearBckg);
-        // Router.reload();
+        Router.reload();
     };
     return (
         <>
